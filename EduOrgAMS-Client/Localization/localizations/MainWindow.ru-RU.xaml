@@ -1,0 +1,104 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="ResourceDictionaryName">localization-xaml</system:String>
+
+    <system:String x:Key="Login">Логин</system:String>
+    <system:String x:Key="Password">Пароль</system:String>
+    <system:String x:Key="RememberMe">Запомнить пользователя</system:String>
+    <system:String x:Key="SignIn">Войти</system:String>
+    <system:String x:Key="SignInTitle">Вход</system:String>
+    <system:String x:Key="StoredAccountsTitle">Сохранённые аккаунты</system:String>
+
+    <system:String x:Key="WIPTitle">Ещё не реализовано</system:String>
+
+    <system:String x:Key="PreviewTitle">Предпросмотр</system:String>
+    <system:String x:Key="EditTitle">Редактирование</system:String>
+    
+    <system:String x:Key="SettingsTitle">Настройки</system:String>
+    <system:String x:Key="LanguageSettingsTitle">Язык</system:String>
+    <system:String x:Key="AccountSettingsTitle">Аккаунт</system:String>
+    <system:String x:Key="ChangingPasswordTitle">Изменение пароля</system:String>
+    <system:String x:Key="ChangePassword">Изменить пароль</system:String>
+    <system:String x:Key="OldPassword">Старый пароль</system:String>
+    <system:String x:Key="NewPassword">Новый пароль</system:String>
+    <system:String x:Key="SignInToAnotherAccount">Войти в другой аккаунт</system:String>
+    <system:String x:Key="SignOut">Выйти из аккаунта</system:String>
+    <system:String x:Key="Version">Версия</system:String>
+
+    <system:String x:Key="ProfileStatTitle-Thoughts">Мысли</system:String>
+    <system:String x:Key="ProfileStatTitle-Purpose">Цель</system:String>
+    <system:String x:Key="ProfileStatTitle-MyDream">Мои мечты</system:String>
+    <system:String x:Key="ProfileStatTitle-MyValues">Ценности</system:String>
+    <system:String x:Key="ProfileStatTitle-Interests">Интересы</system:String>
+    <system:String x:Key="ProfileStatTitle-FavoriteMusic">Любимая музыка</system:String>
+    <system:String x:Key="ProfileStatTitle-FavoriteBooks">Любимые книги</system:String>
+    <system:String x:Key="ProfileStatTitle-FavoriteMovies">Любимые фильмы</system:String>
+    <system:String x:Key="ProfileStatTitle-AboutMe">О себе</system:String>
+    <system:String x:Key="ProfileStatTitle-EmotionalPortrait">Эмоциональный портрет</system:String>
+    <system:String x:Key="ProfileStatTitle-AttitudeToOthers">Отношение к другим</system:String>
+    <system:String x:Key="ProfileStatTitle-Age">Возраст</system:String>
+    <system:String x:Key="ProfileStatTitle-Gender">Пол</system:String>
+    <system:String x:Key="ProfileStatTitle-City">Город</system:String>
+
+    <system:String x:Key="Entity-Role-1">Студент</system:String>
+    <system:String x:Key="Entity-Role-2">Преподаватель</system:String>
+    <system:String x:Key="Entity-Role-3">Заведующий</system:String>
+
+    <system:String x:Key="Entity-Gender-1">Неизвестно</system:String>
+    <system:String x:Key="Entity-Gender-2">Мужской</system:String>
+    <system:String x:Key="Entity-Gender-3">Женский</system:String>
+
+    <system:String x:Key="MenuItem-CopyUrl">Скопировать URL-адрес</system:String>
+    <system:String x:Key="MenuItem-CopyImage">Скопировать изображение</system:String>
+    <system:String x:Key="MenuItem-DownloadImage">Скачать изображение</system:String>
+
+    <system:String x:Key="MenuItem-CopyUserLink">Скопировать ссылку на пользователя</system:String>
+    <system:String x:Key="MenuItem-CopyUserId">Скопировать id пользователя</system:String>
+    <system:String x:Key="MenuItem-SelectImageFromUrl">Вставить URL-адрес изображения</system:String>
+    <system:String x:Key="MenuItem-RemoveImage">Убрать изображение</system:String>
+
+    <system:String x:Key="AttemptingRestoreConnection">Мы пытаемся восстановить подключение...</system:String>
+
+    <system:String x:Key="ProfileEditingTitle">Редактирование профиля</system:String>
+    <system:String x:Key="InsertingImageTitle">Вставка изображения</system:String>
+    <system:String x:Key="LinkOpeningTitle">Открытие ссылки</system:String>
+
+    <system:String x:Key="EnterURL">Введите URL-адрес</system:String>
+
+    <system:String x:Key="OkTitle">Ок</system:String>
+    <system:String x:Key="CancelTitle">Отмена</system:String>
+    <system:String x:Key="EnterTitle">Введите</system:String>
+    <system:String x:Key="EnableTitle">Включить</system:String>
+    <system:String x:Key="ErrorTitle">Ошибка</system:String>
+    <system:String x:Key="SuccessTitle">Успех</system:String>
+    <system:String x:Key="FileTitle">Файл</system:String>
+    <system:String x:Key="NotFoundTitle1">Не найден</system:String>
+    <system:String x:Key="NotFoundTitle2">Не найдена</system:String>
+    <system:String x:Key="NotFoundTitle3">Не найдено</system:String>
+
+    <system:String x:Key="UserNotFound">Пользователь не найден</system:String>
+    <system:String x:Key="UserAccountNotFound">Аккаунт пользователя не найден</system:String>
+
+    <system:String x:Key="ConfirmationTitle">Подтверждение</system:String>
+    <system:String x:Key="ConfirmationMessage">Вы уверены?</system:String>
+
+    <system:String x:Key="NavigationErrorTitle">Ошибка навигации</system:String>
+    <system:String x:Key="LoginErrorTitle">Ошибка входа</system:String>
+    <system:String x:Key="RegisterErrorTitle">Ошибка регистрации</system:String>
+
+    <system:String x:Key="NoLocalizationsFoundMessage">Локализации не найдены</system:String>
+    <system:String x:Key="CouldNotGetLocalizationMessage">Не удалось получить локализацию</system:String>
+    <system:String x:Key="GettingProfileErrorMessage">Не удалось получить профиль</system:String>
+    <system:String x:Key="UpdatingDataErrorMessage">Не удалось обновить данные</system:String>
+    <system:String x:Key="ChangingPasswordErrorMessage">Не удалось изменить пароль</system:String>
+    <system:String x:Key="UserRegisterErrorMessage">Не удалось зарегистрировать пользователя</system:String>
+    <system:String x:Key="UserAccountRegisterErrorMessage">Не удалось зарегистрировать аккаунт пользователя</system:String>
+    <system:String x:Key="LoginAlreadyExistErrorMessage">Пользователь с таким логином уже существует</system:String>
+    <system:String x:Key="LoginNotExistErrorMessage">Пользователь с таким логином не сущесвует</system:String>
+    <system:String x:Key="InvalidLoginOrPasswordErrorMessage">Неверный логин или пароль</system:String>
+    <system:String x:Key="InvalidTokenErrorMessage">Недействительный токен</system:String>
+    <system:String x:Key="TokenExpiredErrorMessage">Срок действия токена истек</system:String>
+
+</ResourceDictionary>

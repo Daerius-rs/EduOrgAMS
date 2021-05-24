@@ -1,0 +1,50 @@
+﻿<local:PageContent x:Class="EduOrgAMS.Client.Pages.ImagePreviewOverlayPage"
+                   d:DataContext="{d:DesignInstance viewModel:ImagePreviewOverlayViewModel}"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                   xmlns:local="clr-namespace:EduOrgAMS.Client.Pages"
+                   xmlns:viewModel="clr-namespace:EduOrgAMS.Client.Pages.ViewModel"
+                   xmlns:indicatorsLoading="clr-namespace:RIS.Graphics.WPF.Controls.Indicators.Loading;assembly=RIS.Graphics"
+                   mc:Ignorable="d" 
+                   d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65"/>
+            <RowDefinition/>
+            <RowDefinition Height="65"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="65"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="65"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Row="0" Grid.Column="0"
+               Grid.RowSpan="3" Grid.ColumnSpan="3"
+               x:Name="img"
+               Source="{Binding Path=DataContext.ImageSource, Converter={StaticResource PreviewImageSourceConverter}, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ImagePreviewOverlayPage}}"
+               Stretch="Uniform" StretchDirection="Both">
+            <Image.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{DynamicResource MenuItem-CopyUrl}"
+                              Click="CopyImageUrl_Click"/>
+                    <MenuItem Header="{DynamicResource MenuItem-CopyImage}"
+                              Click="CopyImage_Click"/>
+                    <MenuItem Header="{DynamicResource MenuItem-DownloadImage}"
+                              Click="DownloadImage_Click"/>
+                </ContextMenu>
+            </Image.ContextMenu>
+        </Image>
+        <Grid Grid.Row="0" Grid.Column="0"
+              Grid.RowSpan="3" Grid.ColumnSpan="3"
+              x:Name="loadingGrid"
+              Visibility="Collapsed" ZIndex="2147483647"
+              Background="{DynamicResource MahApps.Brushes.Window.Background}">
+            <indicatorsLoading:LoadingIndicator x:Name="loadingIndicator" Mode="Arcs"
+                                                SpeedRatio="2" IsActive="False" Visibility="Visible"/>
+        </Grid>
+    </Grid>
+</local:PageContent>

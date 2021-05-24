@@ -1,0 +1,104 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="ResourceDictionaryName">localization-xaml</system:String>
+
+    <system:String x:Key="Login">Login</system:String>
+    <system:String x:Key="Password">Password</system:String>
+    <system:String x:Key="RememberMe">Remember Me</system:String>
+    <system:String x:Key="SignIn">Login</system:String>
+    <system:String x:Key="SignInTitle">Sign In</system:String>
+    <system:String x:Key="StoredAccountsTitle">Stored accounts</system:String>
+
+    <system:String x:Key="WIPTitle">Not implemented yet</system:String>
+
+    <system:String x:Key="PreviewTitle">Preview</system:String>
+    <system:String x:Key="EditTitle">Edit</system:String>
+
+    <system:String x:Key="SettingsTitle">Settings</system:String>
+    <system:String x:Key="LanguageSettingsTitle">Language</system:String>
+    <system:String x:Key="AccountSettingsTitle">Account</system:String>
+    <system:String x:Key="ChangingPasswordTitle">Changing password</system:String>
+    <system:String x:Key="ChangePassword">Change password</system:String>
+    <system:String x:Key="OldPassword">Old password</system:String>
+    <system:String x:Key="NewPassword">New password</system:String>
+    <system:String x:Key="SignInToAnotherAccount">Sign In to another account</system:String>
+    <system:String x:Key="SignOut">Sign Out account</system:String>
+    <system:String x:Key="Version">Version</system:String>
+
+    <system:String x:Key="ProfileStatTitle-Thoughts">Thoughts</system:String>
+    <system:String x:Key="ProfileStatTitle-Purpose">Purpose</system:String>
+    <system:String x:Key="ProfileStatTitle-MyDream">My dream</system:String>
+    <system:String x:Key="ProfileStatTitle-MyValues">My values</system:String>
+    <system:String x:Key="ProfileStatTitle-Interests">Interests</system:String>
+    <system:String x:Key="ProfileStatTitle-FavoriteMusic">Favorite music</system:String>
+    <system:String x:Key="ProfileStatTitle-FavoriteBooks">Favorite books</system:String>
+    <system:String x:Key="ProfileStatTitle-FavoriteMovies">Favorite movies</system:String>
+    <system:String x:Key="ProfileStatTitle-AboutMe">About me</system:String>
+    <system:String x:Key="ProfileStatTitle-EmotionalPortrait">Emotional portrait</system:String>
+    <system:String x:Key="ProfileStatTitle-AttitudeToOthers">Attitude to others</system:String>
+    <system:String x:Key="ProfileStatTitle-Age">Age</system:String>
+    <system:String x:Key="ProfileStatTitle-Gender">Gender</system:String>
+    <system:String x:Key="ProfileStatTitle-City">City</system:String>
+
+    <system:String x:Key="Entity-Role-1">Student</system:String>
+    <system:String x:Key="Entity-Role-2">Teacher</system:String>
+    <system:String x:Key="Entity-Role-3">Supervisor</system:String>
+
+    <system:String x:Key="Entity-Gender-1">Unknown</system:String>
+    <system:String x:Key="Entity-Gender-2">Male</system:String>
+    <system:String x:Key="Entity-Gender-3">Female</system:String>
+
+    <system:String x:Key="MenuItem-CopyUrl">Copy URL</system:String>
+    <system:String x:Key="MenuItem-CopyImage">Copy image</system:String>
+    <system:String x:Key="MenuItem-DownloadImage">Download image</system:String>
+
+    <system:String x:Key="MenuItem-CopyUserLink">Copy link to the user</system:String>
+    <system:String x:Key="MenuItem-CopyUserId">Copy user id</system:String>
+    <system:String x:Key="MenuItem-SelectImageFromUrl">Paste the image URL</system:String>
+    <system:String x:Key="MenuItem-RemoveImage">Remove image</system:String>
+
+    <system:String x:Key="AttemptingRestoreConnection">We are attempting to restore the connection...</system:String>
+
+    <system:String x:Key="ProfileEditingTitle">Profile editing</system:String>
+    <system:String x:Key="InsertingImageTitle">Inserting image</system:String>
+    <system:String x:Key="LinkOpeningTitle">Link opening</system:String>
+
+    <system:String x:Key="EnterURL">Enter URL</system:String>
+
+    <system:String x:Key="OkTitle">Ok</system:String>
+    <system:String x:Key="CancelTitle">Cancel</system:String>
+    <system:String x:Key="EnterTitle">Enter</system:String>
+    <system:String x:Key="EnableTitle">Enable</system:String>
+    <system:String x:Key="ErrorTitle">Error</system:String>
+    <system:String x:Key="SuccessTitle">Success</system:String>
+    <system:String x:Key="FileTitle">File</system:String>
+    <system:String x:Key="NotFoundTitle1">Not found</system:String>
+    <system:String x:Key="NotFoundTitle2">Not found</system:String>
+    <system:String x:Key="NotFoundTitle3">Not found</system:String>
+
+    <system:String x:Key="UserNotFound">User not found</system:String>
+    <system:String x:Key="UserAccountNotFound">User account not found</system:String>
+
+    <system:String x:Key="ConfirmationTitle">Confirmation</system:String>
+    <system:String x:Key="ConfirmationMessage">Are you sure?</system:String>
+
+    <system:String x:Key="NavigationErrorTitle">Navigation error</system:String>
+    <system:String x:Key="LoginErrorTitle">Login error</system:String>
+    <system:String x:Key="RegisterErrorTitle">Register error</system:String>
+
+    <system:String x:Key="NoLocalizationsFoundMessage">No localizations found</system:String>
+    <system:String x:Key="CouldNotGetLocalizationMessage">Couldn't get localization</system:String>
+    <system:String x:Key="GettingProfileErrorMessage">Couldn't get profile</system:String>
+    <system:String x:Key="UpdatingDataErrorMessage">Failed to update data</system:String>
+    <system:String x:Key="ChangingPasswordErrorMessage">Couldn't change password</system:String>
+    <system:String x:Key="UserRegisterErrorMessage">Failed to register user</system:String>
+    <system:String x:Key="UserAccountRegisterErrorMessage">Failed to register user account</system:String>
+    <system:String x:Key="LoginAlreadyExistErrorMessage">User with that login already exist</system:String>
+    <system:String x:Key="LoginNotExistErrorMessage">User with that login does not exist</system:String>
+    <system:String x:Key="InvalidLoginOrPasswordErrorMessage">Invalid login or password</system:String>
+    <system:String x:Key="InvalidTokenErrorMessage">Invalid token</system:String>
+    <system:String x:Key="TokenExpiredErrorMessage">Token expired</system:String>
+
+</ResourceDictionary>
