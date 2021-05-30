@@ -9,6 +9,7 @@ namespace EduOrgAMS.Client.Cryptography
 {
     public static class HashManager
     {
+        // ReSharper disable once InconsistentNaming
         private static Argon2idWP Argon2idProvider { get; }
         private static SHA512iCSP SHA512Provider { get; }
 

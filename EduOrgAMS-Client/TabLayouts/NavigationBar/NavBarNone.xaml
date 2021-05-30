@@ -7,7 +7,6 @@
 
     <x:Array x:Key="TriggeredOnPages" Type="system:String">
         <system:String>LoginPage</system:String>
-        <system:String>RegisterPage</system:String>
     </x:Array>
 
     <x:Array x:Key="TopNavButtons" Type="local:NavRedirectButtonNode"/>

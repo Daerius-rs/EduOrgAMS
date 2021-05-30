@@ -10,15 +10,24 @@ namespace EduOrgAMS.Client.Extensions
     {
         public static string GetResourceKey(this Role target)
         {
+            if (target == null)
+                return null;
+
             return $"Entity-{target.GetType().Name}-{target.Id}";
         }
         public static string GetResourceKey(this Role target, int id)
         {
+            if (target == null)
+                return null;
+
             return $"Entity-{target.GetType().Name}-{id}";
         }
 
         public static string GetLocalizedName(this Role target)
         {
+            if (target == null)
+                return null;
+
             string name =
                 target.Name;
             string localizedName =

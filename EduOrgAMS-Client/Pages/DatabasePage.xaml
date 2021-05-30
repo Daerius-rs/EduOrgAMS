@@ -6,10 +6,15 @@
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:local="clr-namespace:EduOrgAMS.Client.Pages"
                    xmlns:viewModel="clr-namespace:EduOrgAMS.Client.Pages.ViewModel"
+                   xmlns:tabs="clr-namespace:EduOrgAMS.Client.Pages.Tabs"
                    mc:Ignorable="d" 
                    d:DesignHeight="450" d:DesignWidth="800">
-    
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
 
+    <Grid Background="{DynamicResource MahApps.Brushes.Window.Background}">
+        <TabControl Style="{DynamicResource MahApps.Styles.TabControl.Animated}">
+            <TabItem Header="Roles">
+                <tabs:RolesTab/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </local:PageContent>

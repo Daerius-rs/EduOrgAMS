@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using EduOrgAMS.Client.Navigation;
 using EduOrgAMS.Client.Pages.ViewModel;
 
 namespace EduOrgAMS.Client.Pages
@@ -29,6 +30,11 @@ namespace EduOrgAMS.Client.Pages
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void DatabaseManagement_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationController.Instance.RequestPage<DatabasePage>();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
 using System.Threading;
@@ -12,7 +11,6 @@ using EduOrgAMS.Client.Database;
 using EduOrgAMS.Client.Database.Entities;
 using MahApps.Metro.Controls;
 using EduOrgAMS.Client.Dialogs;
-using EduOrgAMS.Client.Extensions;
 using EduOrgAMS.Client.Localization;
 using EduOrgAMS.Client.Navigation;
 using EduOrgAMS.Client.Pages.ViewModel;
@@ -128,8 +126,7 @@ namespace EduOrgAMS.Client.Pages
 
                 ViewModel.CurrentUser = result;
 
-                UpdateStatBlock(wpStatBlock1, wpStatBlock2,
-                    wpStatBlock3, wpStatBlock4);
+                UpdateStatBlock(wpStatBlock1, wpStatBlock2);
             }
             finally
             {
@@ -283,7 +280,7 @@ namespace EduOrgAMS.Client.Pages
 
         private void CopyUserLink_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText($"eoams://app/userbyid/{ViewModel.CurrentUser.Id}");
+            Clipboard.SetText($"eoams://app/user/id/{ViewModel.CurrentUser.Id}");
         }
 
         private void CopyUserId_Click(object sender, RoutedEventArgs e)
@@ -293,37 +290,7 @@ namespace EduOrgAMS.Client.Pages
 
         private void btnEditMode_Click(object sender, RoutedEventArgs e)
         {
-            UpdateStatBlock(wpStatBlock1, wpStatBlock2,
-                wpStatBlock3, wpStatBlock4);
-        }
-
-        private async void SelectAvatarFromUrl_Click(object sender, RoutedEventArgs e)
-        {
-            string title = LocalizationUtils.GetLocalized("InsertingImageTitle");
-            string message = LocalizationUtils.GetLocalized("EnterURL");
-
-            string url = await DialogManager.ShowSinglelineTextDialog(
-                    title, message)
-                .ConfigureAwait(true);
-
-            if (string.IsNullOrWhiteSpace(url))
-                return;
-
-            await ProfileUtils.ChangeAvatar(url)
-                .ConfigureAwait(true);
-
-            ViewModel.CurrentUser.AvatarUrl = url;
-        }
-
-        private async void RemoveAvatar_Click(object sender, RoutedEventArgs e)
-        {
-            await ProfileUtils.RemoveAvatar()
-                .ConfigureAwait(true);
-
-            Dispatcher.Invoke(() =>
-            { 
-                ViewModel.CurrentUser.AvatarUrl = string.Empty;
-            });
+            UpdateStatBlock(wpStatBlock1, wpStatBlock2);
         }
 
         private async void EditSinglelineText_Click(object sender, RoutedEventArgs e)
@@ -456,79 +423,14 @@ namespace EduOrgAMS.Client.Pages
             UpdateStatBlock(statBlock);
         }
 
-        private async void EditComboBoxGender_Click(object sender, RoutedEventArgs e)
+        private void EditPhoneNumber_Click(object sender, RoutedEventArgs e)
         {
-            UserProfileStat element = sender as UserProfileStat;
 
-            BindingExpression binding = element?.GetBindingExpression(UserProfileStat.StatValueProperty);
+        }
 
-            if (binding == null)
-                return;
+        private void EditEmail_Click(object sender, RoutedEventArgs e)
+        {
 
-            User sourceClass = (User)binding.ResolvedSource;
-            PropertyInfo sourceProperty = typeof(User).GetProperty(binding.ResolvedSourcePropertyName);
-
-            if (sourceClass == null || sourceProperty == null)
-                return;
-
-            string title = LocalizationUtils.GetLocalized("ProfileEditingTitle");
-            string enterName = LocalizationUtils.GetLocalized("EnterTitle");
-
-            ReadOnlyCollection<string> localizedNames =
-                new ReadOnlyCollection<string>(Gender.Default.GetLocalizedNames());
-
-            Gender oldValue = (Gender)(sourceProperty.GetValue(sourceClass)
-                                                 ?? Gender.Default);
-            string valueName = await DialogManager.ShowComboBoxDialog(title,
-                    $"{enterName} '{element.StatTitle}'", localizedNames,
-                    oldValue.GetLocalizedName())
-                .ConfigureAwait(true);
-
-            if (valueName == null)
-                return;
-
-            Gender value = Gender.Default.ParseLocalizedName(valueName);
-
-            if (value == null)
-                return;
-
-            await using var context = DatabaseManager.CreateContext();
-
-            var user = await context.Users.FindAsync(
-                    SettingsManager.PersistentSettings.CurrentUser.Id)
-                .ConfigureAwait(true);
-
-            if (user == null)
-            {
-                var message = LocalizationUtils.GetLocalized("GettingProfileErrorMessage");
-
-                await DialogManager.ShowErrorDialog(message)
-                    .ConfigureAwait(true);
-                return;
-            }
-
-            sourceProperty.SetValue(sourceClass, value);
-            sourceProperty.SetValue(user, value);
-
-            var changesCount = await DatabaseManager.SaveChangesAsync(context)
-                .ConfigureAwait(true);
-
-            if (changesCount == 0)
-            {
-                var message = LocalizationUtils.GetLocalized("UpdatingDataErrorMessage");
-
-                await DialogManager.ShowErrorDialog(message)
-                    .ConfigureAwait(true);
-
-                sourceProperty.SetValue(sourceClass, oldValue);
-            }
-
-            var statBlock = element.TryFindParent<StackPanel>();
-
-            if (statBlock == null)
-                return;
-
-            UpdateStatBlock(statBlock);
         }
 
         private void Avatar_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

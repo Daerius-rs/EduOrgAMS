@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace EduOrgAMS.Client.Database.Entities
 {
@@ -11,7 +12,7 @@ namespace EduOrgAMS.Client.Database.Entities
         {
             Id = -1,
             ProfessionId = Profession.Default.Id,
-            CuratorId = User.Default.Id
+            CuratorId = -1
         };
 
         [NotMapped]
@@ -101,10 +102,43 @@ namespace EduOrgAMS.Client.Database.Entities
         }
 
         [ForeignKey("ProfessionId")]
-        public virtual Profession Profession { get; set; }
+        public virtual Profession Profession
+        {
+            get
+            {
+                return DatabaseManager.Find<Profession>(
+                    ProfessionId);
+            }
+            set
+            {
+                ProfessionId = value.Id;
+            }
+        }
         [ForeignKey("CuratorId")]
-        public virtual User Curator { get; set; }
+        public virtual User Curator
+        {
+            get
+            {
+                return DatabaseManager.Find<User>(
+                    CuratorId);
+            }
+            set
+            {
+                CuratorId = value.Id;
+            }
+        }
 
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Course> Courses
+        {
+            get
+            {
+                using var context = DatabaseManager.CreateContext();
+
+                return context.Courses
+                    .Where(course =>
+                        course.GroupId == Id)
+                    .ToList();
+            }
+        }
     }
 }

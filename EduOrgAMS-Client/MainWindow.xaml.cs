@@ -100,6 +100,21 @@ namespace EduOrgAMS.Client
         public string AppVersion { get; private set; }
         public bool DuringRestoreToMaximized { get; private set; }
 
+        public static AppSettings AppSettings
+        {
+            get
+            {
+                return SettingsManager.AppSettings;
+            }
+        }
+        public static PersistentSettings PersistentSettings
+        {
+            get
+            {
+                return SettingsManager.PersistentSettings;
+            }
+        }
+
         private MainWindow()
         {
             InitializeComponent();

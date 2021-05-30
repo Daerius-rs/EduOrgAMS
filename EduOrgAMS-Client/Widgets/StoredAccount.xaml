@@ -58,16 +58,13 @@
                             <Style BasedOn="{StaticResource Paragraph}"
                                    TargetType="TextBlock">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=UserStatus}" Value="Active">
+                                    <DataTrigger Binding="{Binding Path=UserRole.Name}" Value="Student">
                                         <Setter Property="TextBlock.Foreground" Value="White"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=UserStatus}" Value="Banned">
-                                        <Setter Property="TextBlock.Foreground" Value="Red"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=UserStatus}" Value="Moderator">
+                                    <DataTrigger Binding="{Binding Path=UserRole.Name}" Value="Teacher">
                                         <Setter Property="TextBlock.Foreground" Value="Violet"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=UserStatus}" Value="Admin">
+                                    <DataTrigger Binding="{Binding Path=UserRole.Name}" Value="Supervisor">
                                         <Setter Property="TextBlock.Foreground" Value="DarkViolet"/>
                                     </DataTrigger>
                                 </Style.Triggers>

@@ -18,6 +18,8 @@ namespace EduOrgAMS.Client.Widgets
     {
         public static readonly RoutedEvent OnRedirectRequested =
             EventManager.RegisterRoutedEvent(nameof(RedirectRequest), RoutingStrategy.Bubble, typeof(EventHandler<RoutedEventArgs>), typeof(NavigationBar));
+        public static readonly RoutedEvent OnRedirect =
+            EventManager.RegisterRoutedEvent(nameof(Redirect), RoutingStrategy.Bubble, typeof(EventHandler<RoutedEventArgs>), typeof(NavigationBar));
         public static readonly DependencyProperty TopNavButtonsProperty =
             DependencyProperty.Register(nameof(TopNavButtons), typeof(ObservableCollection<IconButton>), typeof(NavigationBar),
                 new PropertyMetadata(new ObservableCollection<IconButton>()));
@@ -37,6 +39,17 @@ namespace EduOrgAMS.Client.Widgets
             remove
             {
                 RemoveHandler(OnRedirectRequested, value);
+            }
+        }
+        public event EventHandler<RoutedEventArgs> Redirect
+        {
+            add
+            {
+                AddHandler(OnRedirect, value);
+            }
+            remove
+            {
+                RemoveHandler(OnRedirect, value);
             }
         }
 
@@ -115,6 +128,8 @@ namespace EduOrgAMS.Client.Widgets
 
         private async void OnNavButtonClick(object sender, RoutedEventArgs e)
         {
+            RaiseEvent(new RoutedEventArgs(OnRedirectRequested));
+
             try
             {
                 if (sender is IconButton button)
@@ -164,8 +179,6 @@ namespace EduOrgAMS.Client.Widgets
                 await DialogManager.ShowMessageDialog(title, ex.Message)
                     .ConfigureAwait(true);
             }
-
-            RaiseEvent(new RoutedEventArgs(OnRedirectRequested));
         }
     }
 }

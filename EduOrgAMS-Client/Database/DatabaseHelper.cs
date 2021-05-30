@@ -19,8 +19,10 @@ namespace EduOrgAMS.Client.Database
             {
                 await using var context = DatabaseManager.CreateContext();
 
-                var account = await context.Accounts.FirstOrDefaultAsync(
-                        acc => acc.Login == login)
+                var account = await context.Accounts
+                    .Include(acc => acc.User)
+                    .FirstOrDefaultAsync(acc =>
+                        acc.Login == login)
                     .ConfigureAwait(true);
 
                 if (account == null)
@@ -88,7 +90,9 @@ namespace EduOrgAMS.Client.Database
             {
                 await using var context = DatabaseManager.CreateContext();
 
-                var account = await context.Accounts.FirstOrDefaultAsync(
+                var account = await context.Accounts
+                    .Include(acc => acc.User)
+                    .FirstOrDefaultAsync(
                         acc => acc.Token == token)
                     .ConfigureAwait(true);
 

@@ -15,20 +15,16 @@
                     <Setter Property="TextBlock.FontSize" Value="11"/>
 
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=StatusValue}" Value="Active">
-                            <Setter Property="TextBlock.Text" Value="{DynamicResource Enum-Role-Active}"/>
+                        <DataTrigger Binding="{Binding Path=RoleValue.Name}" Value="Student">
+                            <Setter Property="TextBlock.Text" Value="{DynamicResource Entity-Role-1}"/>
                             <Setter Property="TextBlock.Foreground" Value="White"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=StatusValue}" Value="Banned">
-                            <Setter Property="TextBlock.Text" Value="{DynamicResource Enum-Role-Banned}"/>
-                            <Setter Property="TextBlock.Foreground" Value="Red"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=StatusValue}" Value="Moderator">
-                            <Setter Property="TextBlock.Text" Value="{DynamicResource Enum-Role-Moderator}"/>
+                        <DataTrigger Binding="{Binding Path=RoleValue.Name}" Value="Teacher">
+                            <Setter Property="TextBlock.Text" Value="{DynamicResource Entity-Role-2}"/>
                             <Setter Property="TextBlock.Foreground" Value="Violet"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=StatusValue}" Value="Admin">
-                            <Setter Property="TextBlock.Text" Value="{DynamicResource Enum-Role-Admin}"/>
+                        <DataTrigger Binding="{Binding Path=RoleValue.Name}" Value="Supervisor">
+                            <Setter Property="TextBlock.Text" Value="{DynamicResource Entity-Role-3}"/>
                             <Setter Property="TextBlock.Foreground" Value="DarkViolet"/>
                         </DataTrigger>
                     </Style.Triggers>

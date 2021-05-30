@@ -27,20 +27,13 @@
     <system:String x:Key="SignOut">Выйти из аккаунта</system:String>
     <system:String x:Key="Version">Версия</system:String>
 
-    <system:String x:Key="ProfileStatTitle-Thoughts">Мысли</system:String>
-    <system:String x:Key="ProfileStatTitle-Purpose">Цель</system:String>
-    <system:String x:Key="ProfileStatTitle-MyDream">Мои мечты</system:String>
-    <system:String x:Key="ProfileStatTitle-MyValues">Ценности</system:String>
-    <system:String x:Key="ProfileStatTitle-Interests">Интересы</system:String>
-    <system:String x:Key="ProfileStatTitle-FavoriteMusic">Любимая музыка</system:String>
-    <system:String x:Key="ProfileStatTitle-FavoriteBooks">Любимые книги</system:String>
-    <system:String x:Key="ProfileStatTitle-FavoriteMovies">Любимые фильмы</system:String>
-    <system:String x:Key="ProfileStatTitle-AboutMe">О себе</system:String>
-    <system:String x:Key="ProfileStatTitle-EmotionalPortrait">Эмоциональный портрет</system:String>
-    <system:String x:Key="ProfileStatTitle-AttitudeToOthers">Отношение к другим</system:String>
-    <system:String x:Key="ProfileStatTitle-Age">Возраст</system:String>
+    <system:String x:Key="ProfileStatTitle-FullName">Полное имя</system:String>
+    <system:String x:Key="ProfileStatTitle-Role">Роль</system:String>
     <system:String x:Key="ProfileStatTitle-Gender">Пол</system:String>
-    <system:String x:Key="ProfileStatTitle-City">Город</system:String>
+    <system:String x:Key="ProfileStatTitle-Age">Возраст</system:String>
+    <system:String x:Key="ProfileStatTitle-PhoneNumber">Номер телефона</system:String>
+    <system:String x:Key="ProfileStatTitle-Email">Почта</system:String>
+    <system:String x:Key="ProfileStatTitle-Address">Адрес</system:String>
 
     <system:String x:Key="Entity-Role-1">Студент</system:String>
     <system:String x:Key="Entity-Role-2">Преподаватель</system:String>
@@ -100,5 +93,7 @@
     <system:String x:Key="InvalidLoginOrPasswordErrorMessage">Неверный логин или пароль</system:String>
     <system:String x:Key="InvalidTokenErrorMessage">Недействительный токен</system:String>
     <system:String x:Key="TokenExpiredErrorMessage">Срок действия токена истек</system:String>
+
+    <system:String x:Key="DatabaseManagement">Управление базой данных</system:String>
 
 </ResourceDictionary>

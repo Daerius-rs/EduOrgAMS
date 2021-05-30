@@ -14,11 +14,11 @@ namespace EduOrgAMS.Client.Pages.ViewModel
         {
             get
             {
-                return CurrentUser;
+                return _currentUser;
             }
             set
             {
-                CurrentUser = value;
+                _currentUser = value;
 
                 OnPropertyChanged(nameof(CurrentUser));
                 OnPropertyChanged(nameof(EditAllowed));

@@ -7,9 +7,9 @@
 
     <x:Array x:Key="TriggeredOnPages" Type="system:String">
         <system:String>MainPage</system:String>
-        <system:String>DatabasePage</system:String>
         <system:String>UserProfilePage</system:String>
         <system:String>PlaceholderPage</system:String>
+        <system:String>DatabasePage</system:String>
     </x:Array>
 
     <x:Array x:Key="TopNavButtons" Type="local:NavRedirectButtonNode">
@@ -17,8 +17,7 @@
     </x:Array>
     <x:Array x:Key="CentralNavButtons" Type="local:NavRedirectButtonNode">
         <local:NavRedirectButtonNode PageName="PlaceholderPage" IconKind="Magnify"/>
-        <local:NavRedirectButtonNode PageName="MainPage" IconKind="Newspaper"/>
-        <local:NavRedirectButtonNode PageName="DatabasePage" IconKind="Database"/>
+        <local:NavRedirectButtonNode PageName="MainPage" IconKind="Home"/>
     </x:Array>
     <x:Array x:Key="BottomNavButtons" Type="local:NavRedirectButtonNode">
         <local:NavRedirectButtonNode PageName="UserProfilePage" IconKind="PeopleProfile"/>

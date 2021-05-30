@@ -166,7 +166,18 @@ namespace EduOrgAMS.Client.Database.Entities
         }
 
         [ForeignKey("CourseId")]
-        public virtual Course Course { get; set; }
+        public virtual Course Course
+        {
+            get
+            {
+                return DatabaseManager.Find<Course>(
+                    CourseId);
+            }
+            set
+            {
+                CourseId = value.Id;
+            }
+        }
 
 
 

@@ -56,7 +56,7 @@ namespace EduOrgAMS.Client.Protocols.Schemas
                 if (requestComponents.Length >= 2)
                 {
                     string methodName = string.Join('/',
-                        requestComponents.SkipLast(1));
+                        requestComponents[..^1]);
                     string args = requestComponents[^1];
 
                     LogManager.DebugLog.Info($"Request method - Name={methodName},Args={args}");

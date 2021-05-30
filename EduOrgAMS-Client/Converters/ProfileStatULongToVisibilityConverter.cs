@@ -2,23 +2,19 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using EduOrgAMS.Client.Database;
-using EduOrgAMS.Client.Database.Entities;
 
 namespace EduOrgAMS.Client.Converters
 {
-    public sealed class GenderToVisibilityConverter : IValueConverter
+    public sealed class ProfileStatULongToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Gender result = Gender.Default;
+            ulong result = 0;
 
-            if (value is int intValue)
-                result = DatabaseManager.Find<Gender>(intValue);
-            else if (value is Gender typeValue)
-                result = typeValue;
+            if (value is ulong intValue)
+                result = intValue;
 
-            return result != null && result.Id != Gender.Default.Id
+            return result != 0
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

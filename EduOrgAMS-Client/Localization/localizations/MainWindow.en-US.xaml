@@ -27,20 +27,13 @@
     <system:String x:Key="SignOut">Sign Out account</system:String>
     <system:String x:Key="Version">Version</system:String>
 
-    <system:String x:Key="ProfileStatTitle-Thoughts">Thoughts</system:String>
-    <system:String x:Key="ProfileStatTitle-Purpose">Purpose</system:String>
-    <system:String x:Key="ProfileStatTitle-MyDream">My dream</system:String>
-    <system:String x:Key="ProfileStatTitle-MyValues">My values</system:String>
-    <system:String x:Key="ProfileStatTitle-Interests">Interests</system:String>
-    <system:String x:Key="ProfileStatTitle-FavoriteMusic">Favorite music</system:String>
-    <system:String x:Key="ProfileStatTitle-FavoriteBooks">Favorite books</system:String>
-    <system:String x:Key="ProfileStatTitle-FavoriteMovies">Favorite movies</system:String>
-    <system:String x:Key="ProfileStatTitle-AboutMe">About me</system:String>
-    <system:String x:Key="ProfileStatTitle-EmotionalPortrait">Emotional portrait</system:String>
-    <system:String x:Key="ProfileStatTitle-AttitudeToOthers">Attitude to others</system:String>
-    <system:String x:Key="ProfileStatTitle-Age">Age</system:String>
+    <system:String x:Key="ProfileStatTitle-FullName">Full name</system:String>
+    <system:String x:Key="ProfileStatTitle-Role">Role</system:String>
     <system:String x:Key="ProfileStatTitle-Gender">Gender</system:String>
-    <system:String x:Key="ProfileStatTitle-City">City</system:String>
+    <system:String x:Key="ProfileStatTitle-Age">Age</system:String>
+    <system:String x:Key="ProfileStatTitle-PhoneNumber">Phone number</system:String>
+    <system:String x:Key="ProfileStatTitle-Email">Email</system:String>
+    <system:String x:Key="ProfileStatTitle-Address">Address</system:String>
 
     <system:String x:Key="Entity-Role-1">Student</system:String>
     <system:String x:Key="Entity-Role-2">Teacher</system:String>
@@ -100,5 +93,7 @@
     <system:String x:Key="InvalidLoginOrPasswordErrorMessage">Invalid login or password</system:String>
     <system:String x:Key="InvalidTokenErrorMessage">Invalid token</system:String>
     <system:String x:Key="TokenExpiredErrorMessage">Token expired</system:String>
+
+    <system:String x:Key="DatabaseManagement">Database management</system:String>
 
 </ResourceDictionary>

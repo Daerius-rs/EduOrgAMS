@@ -13,6 +13,8 @@ namespace EduOrgAMS.Client.Database.Configurations
 
             builder.Property(course => course.Id)
                 .ValueGeneratedOnAdd();
+            builder.Property(course => course.GroupId)
+                .IsRequired();
             builder.Property(course => course.Number)
                 .IsRequired();
             builder.Property(course => course.StartYear)

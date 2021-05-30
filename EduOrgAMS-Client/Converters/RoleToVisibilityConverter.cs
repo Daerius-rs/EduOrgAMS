@@ -18,7 +18,7 @@ namespace EduOrgAMS.Client.Converters
             else if (value is Role typeValue)
                 result = typeValue;
 
-            return result != Role.Default
+            return result != null && result.Id != Role.Default.Id
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }

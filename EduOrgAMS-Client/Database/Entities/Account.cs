@@ -9,7 +9,7 @@ namespace EduOrgAMS.Client.Database.Entities
         public static readonly Account Default = new Account
         {
             Id = -1,
-            UserId = User.Default.Id
+            UserId = -1
         };
 
         [NotMapped]
@@ -48,6 +48,17 @@ namespace EduOrgAMS.Client.Database.Entities
         }
 
         [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        public virtual User User
+        {
+            get
+            {
+                return DatabaseManager.Find<User>(
+                    UserId);
+            }
+            set
+            {
+                UserId = value.Id;
+            }
+        }
     }
 }

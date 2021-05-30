@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using EduOrgAMS.Client.Database.Entities.Data;
 using RIS.Collections.Nestable;
 using RIS.Extensions;
@@ -51,6 +52,21 @@ namespace EduOrgAMS.Client.Database.Entities
                 OnAllPropertiesChanged();
             }
         }
+        [NotMapped]
+        private int _groupId;
+        public int GroupId
+        {
+            get
+            {
+                return _groupId;
+            }
+            set
+            {
+                _groupId = value;
+                OnPropertyChanged(nameof(GroupId));
+                OnPropertyChanged(nameof(Group));
+            }
+        }
         public byte Number { get; set; }
         public ushort StartYear { get; set; }
         public ushort EndYear { get; set; }
@@ -73,7 +89,32 @@ namespace EduOrgAMS.Client.Database.Entities
             }
         }
 
-        public virtual ICollection<Semester> Semesters { get; set; }
+        [ForeignKey("GroupId")]
+        public virtual Group Group
+        {
+            get
+            {
+                return DatabaseManager.Find<Group>(
+                    GroupId);
+            }
+            set
+            {
+                GroupId = value.Id;
+            }
+        }
+
+        public virtual ICollection<Semester> Semesters
+        {
+            get
+            {
+                using var context = DatabaseManager.CreateContext();
+
+                return context.Semesters
+                    .Where(semester =>
+                        semester.CourseId == Id)
+                    .ToList();
+            }
+        }
 
 
 

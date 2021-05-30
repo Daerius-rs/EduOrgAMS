@@ -12,7 +12,8 @@ namespace EduOrgAMS.Client.Database.Entities
         {
             Id = -1,
             GenderId = Gender.Default.Id,
-            RoleId = Role.Default.Id
+            RoleId = Role.Default.Id,
+            GroupId = Group.Default.Id
         };
 
         [NotMapped]
@@ -28,7 +29,7 @@ namespace EduOrgAMS.Client.Database.Entities
         {
             get
             {
-                return $"{FirstName.FirstOrDefault()}.{Patronymic.FirstOrDefault()}. {LastName}";
+                return $"{FirstName?.FirstOrDefault()}.{Patronymic?.FirstOrDefault()}. {LastName}";
             }
         }
         [NotMapped]
@@ -36,7 +37,7 @@ namespace EduOrgAMS.Client.Database.Entities
         {
             get
             {
-                return $"{LastName} {FirstName.FirstOrDefault()}.{Patronymic.FirstOrDefault()}.";
+                return $"{LastName} {FirstName?.FirstOrDefault()}.{Patronymic?.FirstOrDefault()}.";
             }
         }
 
@@ -51,6 +52,25 @@ namespace EduOrgAMS.Client.Database.Entities
             set
             {
                 _id = value;
+
+                var user = value != -1 && value != 0
+                    ? DatabaseManager.Find<User>(value)
+                    : null;
+
+                LastName = user?.LastName ?? null;
+                FirstName = user?.FirstName ?? null;
+                Patronymic = user?.Patronymic ?? null;
+                GenderId = user?.GenderId ?? Gender.Default.Id;
+                BirthDate = user?.BirthDate ?? 0;
+                PhoneNumber = user?.PhoneNumber ?? null;
+                Email = user?.Email ?? null;
+                Address = user?.Address ?? null;
+                AvatarUrl = user?.AvatarUrl ?? null;
+                RoleId = user?.RoleId ?? Role.Default.Id;
+                RegistrationDate = user?.RegistrationDate ?? 0;
+                Dismissed = user?.Dismissed ?? false;
+                GroupId = user?.GroupId ?? Group.Default.Id;
+
                 OnPropertyChanged(nameof(Id));
                 OnAllPropertiesChanged();
             }
@@ -160,12 +180,56 @@ namespace EduOrgAMS.Client.Database.Entities
         }
 
         [ForeignKey("GenderId")]
-        public virtual Gender Gender { get; set; }
+        public virtual Gender Gender
+        {
+            get
+            {
+                return DatabaseManager.Find<Gender>(
+                    GenderId);
+            }
+            set
+            {
+                GenderId = value.Id;
+            }
+        }
         [ForeignKey("RoleId")]
-        public virtual Role Role { get; set; }
+        public virtual Role Role
+        {
+            get
+            {
+                return DatabaseManager.Find<Role>(
+                    RoleId);
+            }
+            set
+            {
+                RoleId = value.Id;
+            }
+        }
         [ForeignKey("GroupId")]
-        public virtual Group Group { get; set; }
+        public virtual Group Group
+        {
+            get
+            {
+                return DatabaseManager.Find<Group>(
+                    GroupId);
+            }
+            set
+            {
+                GroupId = value.Id;
+            }
+        }
 
-        public virtual ICollection<Group> CuratedGroups { get; set; }
+        public virtual ICollection<Group> CuratedGroups
+        {
+            get
+            {
+                using var context = DatabaseManager.CreateContext();
+
+                return context.Groups
+                    .Where(group =>
+                        group.CuratorId == Id)
+                    .ToList();
+            }
+        }
     }
 }

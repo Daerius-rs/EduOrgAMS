@@ -122,18 +122,22 @@
             <convertersLocal:StatIntToBorderBackgroundConverter x:Key="StatIntToBorderBackgroundConverter"/>
             <convertersLocal:ProfileStatStringToVisibilityConverter x:Key="ProfileStatStringToVisibilityConverter"/>
             <convertersLocal:ProfileStatIntToVisibilityConverter x:Key="ProfileStatIntToVisibilityConverter"/>
+            <convertersLocal:ProfileStatULongToVisibilityConverter x:Key="ProfileStatULongToVisibilityConverter"/>
             <convertersLocal:ProfileStatCollectionToVisibilityConverter x:Key="ProfileStatCollectionToVisibilityConverter"/>
             <convertersLocal:ProfileStatVisibilityMultiConverter x:Key="ProfileStatVisibilityMultiConverter"/>
             <convertersLocal:ProfileStatBlockVisibilityMultiConverter x:Key="ProfileStatBlockVisibilityMultiConverter"/>
+            <convertersLocal:BirthDateToAgeStringConverter x:Key="BirthDateToAgeStringConverter"/>
             <convertersLocal:GenderToStringConverter x:Key="GenderToStringConverter"/>
             <convertersLocal:GenderToVisibilityConverter x:Key="GenderToVisibilityConverter"/>
             <convertersLocal:UserNameConverter x:Key="UserNameConverter"/>
             <convertersLocal:RoleConverter x:Key="RoleConverter"/>
+            <convertersLocal:RoleToStringConverter x:Key="RoleToStringConverter"/>
             <convertersLocal:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter"/>
             <convertersLocal:UserAvatarImageSourceConverter x:Key="UserAvatarImageSourceConverter"/>
             <convertersLocal:OwnerIdToVisibilityConverter x:Key="OwnerIdToVisibilityConverter"/>
             <convertersLocal:PreviewImageSourceConverter x:Key="PreviewImageSourceConverter"/>
             <convertersLocal:UnixTimeToStringConverter x:Key="UnixTimeToStringConverter"/>
+            <convertersLocal:MinimumAccessRoleToVisibilityConverter x:Key="MinimumAccessRoleToVisibilityConverter"/>
 
             <convertersRis:SimpleArithmeticConverter x:Key="SimpleArithmeticConverter"/>
             <convertersRis:ScriptEvaluatorConverter x:Key="ScriptEvaluatorConverter"/>
