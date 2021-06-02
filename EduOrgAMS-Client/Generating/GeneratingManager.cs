@@ -37,7 +37,7 @@ namespace EduOrgAMS.Client.Generating
         private static string _previousSmile;
 
         public static readonly IUnbiasedRandom RandomGenerator;
-        public static readonly IUnbiasedRandom CachedRandomGenerator;
+        public static readonly ICachedUnbiasedRandom CachedRandomGenerator;
         public static readonly StringGenerator RandomStringGenerator;
 
         static GeneratingManager()
@@ -53,11 +53,8 @@ namespace EduOrgAMS.Client.Generating
 
         public static string GetRandomSmile()
         {
-            var biasZone =
-                int.MaxValue - (int.MaxValue % Smiles.Length) - 1;
-            int smileIndex =
-                (int)CachedRandomGenerator
-                    .GetUInt32((uint)biasZone) % Smiles.Length;
+            var smileIndex = (int)CachedRandomGenerator
+                .GetNormalizedIndex((uint)Smiles.Length);
 
             if (Smiles[smileIndex] != _previousSmile)
             {
@@ -85,7 +82,8 @@ namespace EduOrgAMS.Client.Generating
             return Smiles[smileIndex];
         }
 
-        public static string GenerateToken(string login, ulong tokenExpirationDate)
+        public static string GenerateToken(string login,
+            ulong tokenExpirationDate)
         {
             var rawTokenData =
                 $"{login}" +

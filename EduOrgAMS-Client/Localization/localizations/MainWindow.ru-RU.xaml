@@ -94,6 +94,17 @@
     <system:String x:Key="InvalidTokenErrorMessage">Недействительный токен</system:String>
     <system:String x:Key="TokenExpiredErrorMessage">Срок действия токена истек</system:String>
 
+    <system:String x:Key="Tab-Button-Add">Добавить</system:String>
+    <system:String x:Key="Tab-Button-Edit">Редактировать</system:String>
+    <system:String x:Key="Tab-Button-Delete">Удалить</system:String>
+    <system:String x:Key="Tab-Button-Update">Обновить</system:String>
+    <system:String x:Key="Tab-Button-Save">Сохранить</system:String>
+
+    <system:String x:Key="RolesTab-Header-Id">Id</system:String>
+    <system:String x:Key="RolesTab-Header-Name">Название</system:String>
+    <system:String x:Key="RolesTab-Header-Permissions">Права доступа</system:String>
+    <system:String x:Key="RolesTab-Header-IsAdmin">Права администратора</system:String>
+
     <system:String x:Key="DatabaseManagement">Управление базой данных</system:String>
 
 </ResourceDictionary>

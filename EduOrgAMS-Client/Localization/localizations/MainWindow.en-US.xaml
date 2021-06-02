@@ -94,6 +94,17 @@
     <system:String x:Key="InvalidTokenErrorMessage">Invalid token</system:String>
     <system:String x:Key="TokenExpiredErrorMessage">Token expired</system:String>
 
+    <system:String x:Key="Tab-Button-Add">Add</system:String>
+    <system:String x:Key="Tab-Button-Edit">Edit</system:String>
+    <system:String x:Key="Tab-Button-Delete">Delete</system:String>
+    <system:String x:Key="Tab-Button-Update">Update</system:String>
+    <system:String x:Key="Tab-Button-Save">Save</system:String>
+
+    <system:String x:Key="RolesTab-Header-Id">Id</system:String>
+    <system:String x:Key="RolesTab-Header-Name">Name</system:String>
+    <system:String x:Key="RolesTab-Header-Permissions">Permissions</system:String>
+    <system:String x:Key="RolesTab-Header-IsAdmin">Admin rights</system:String>
+
     <system:String x:Key="DatabaseManagement">Database management</system:String>
 
 </ResourceDictionary>

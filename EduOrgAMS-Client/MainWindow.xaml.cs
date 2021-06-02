@@ -141,7 +141,7 @@ namespace EduOrgAMS.Client
             ConnectionFailedGridStatus = false;
             _connectionFailedGridTask = Task.CompletedTask;
 
-            LoadLoadingStyle();
+            ApplyLoadingStyle();
 
             LocalizationManager.ReloadLocales();
 
@@ -184,7 +184,7 @@ namespace EduOrgAMS.Client
             LocalizationManager.LanguageChanged -= OnLanguageChanged;
         }
 
-        private void LoadLoadingStyle()
+        private void ApplyLoadingStyle()
         {
             _loadingStyle = StylesManager.GetRandomLoadingStyle();
 

@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:EduOrgAMS.Client"
              xmlns:convertersLocal="clr-namespace:EduOrgAMS.Client.Converters"
              xmlns:convertersRis="clr-namespace:RIS.Graphics.WPF.Xaml.Converters;assembly=RIS.Graphics"
-             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -48,11 +48,17 @@
                 <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Text}"/>
             </Style>
 
-            <Style x:Key="DefaultDialog" TargetType="{x:Type mah:CustomDialog}"
+            <Style x:Key="NormalCasingColumnHeader" 
+                   BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}" 
+                   TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Normal"/>
+            </Style>
+
+            <Style x:Key="DefaultDialog" TargetType="{x:Type controls:CustomDialog}"
                    BasedOn="{StaticResource MahApps.Styles.BaseMetroDialog}">
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type mah:CustomDialog}">
+                        <ControlTemplate TargetType="{x:Type controls:CustomDialog}">
                             <ControlTemplate.Resources>
                                 <Storyboard x:Key="DialogShownStoryboard">
                                     <DoubleAnimation AccelerationRatio=".9"

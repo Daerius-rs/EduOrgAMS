@@ -5,10 +5,59 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:local="clr-namespace:EduOrgAMS.Client.Pages.Tabs"
+                  xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                   mc:Ignorable="d"
                   d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="{DynamicResource MahApps.Brushes.Window.Background}">
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition MinWidth="150" Width="150"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Grid.Column="0"
+                  x:Name="TableGrid"
+                  Style="{DynamicResource MahApps.Styles.DataGrid}"
+                  ColumnHeaderStyle="{DynamicResource NormalCasingColumnHeader}"
+                  RowBackground="#FF585858"
+                  AlternatingRowBackground="#FF606060"
+                  BorderBrush="#FF585858"
+                  GridLinesVisibility="All"
+                  SelectionMode="Single"
+                  SelectionUnit="CellOrRowHeader"
+                  AutoGenerateColumns="False"
+                  CanUserReorderColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  RowHeaderWidth="10"
+                  HeadersVisibility="All"
+                  Margin="5"
+                  BorderThickness="1"
+                  MouseDoubleClick="TableGrid_MouseDoubleClick">
+        </DataGrid>
+
+        <Grid Grid.Column="1">
+            <StackPanel Orientation="Vertical"
+                        VerticalAlignment="Top"
+                        Margin="5">
+                <Button Content="{DynamicResource Tab-Button-Add}"
+                        Style="{DynamicResource MahApps.Styles.Button}"
+                        Margin="0 0 0 5"/>
+                <Button Content="{DynamicResource Tab-Button-Edit}"
+                        Style="{DynamicResource MahApps.Styles.Button}"
+                        Margin="0 0 0 5"/>
+                <Button Content="{DynamicResource Tab-Button-Delete}"
+                        Style="{DynamicResource MahApps.Styles.Button}"
+                        Margin="0 0 0 5"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                        VerticalAlignment="Bottom"
+                        Margin="5">
+                <Button Content="{DynamicResource Tab-Button-Update}"
+                        Style="{DynamicResource MahApps.Styles.Button}"
+                        Margin="0 5 0 0"
+                        Click="UpdateButton_Click"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </local:TabContent>

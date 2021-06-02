@@ -47,14 +47,15 @@ namespace EduOrgAMS.Client.Styles
 
             void AddStyle(string styleName)
             {
+                styleName += "Theme";
+
                 loadingStyles.Add(new LoadingStyle(
                     styleName, GetStyle("Loading", styleName)));
             }
 
-            AddStyle("SmileWithTearTheme");
-            AddStyle("MarinaTheme");
-            AddStyle("KurtkaTheme");
-
+            AddStyle("1");
+            AddStyle("2");
+            AddStyle("3");
 
             return new ReadOnlyCollection<LoadingStyle>(
                 loadingStyles);

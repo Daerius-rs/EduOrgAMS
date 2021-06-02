@@ -8,7 +8,7 @@
     <SolidColorBrush x:Key="Window.Main.NonActiveTitleBackground" Color="#FFFBCB3C"/>
     <SolidColorBrush x:Key="Window.Main.Background" Color="#FFFBCB3C"/>
 
-    <system:String x:Key="LoadingForegroundImagePath">Resources/Images/Loading/SmileWithTear_fg.png</system:String>
+    <system:String x:Key="LoadingForegroundImagePath">None</system:String>
     <system:String x:Key="LoadingBackgroundImagePath">None</system:String>
 
     <system:String x:Key="LoadingIndicatorHorizontalAlignment">Right</system:String>
