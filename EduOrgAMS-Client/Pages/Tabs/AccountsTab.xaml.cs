@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using EduOrgAMS.Client.Converters;
 using EduOrgAMS.Client.Database;
 using EduOrgAMS.Client.Database.Entities;
 using EduOrgAMS.Client.Dialogs;
@@ -19,20 +20,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EduOrgAMS.Client.Pages.Tabs
 {
-    public partial class RolesTab : TabContent
+    public partial class AccountsTab : TabContent
     {
         private static Type ItemType { get; }
         private static ReadOnlyDictionary<string, PropertyInfo> ItemProperties { get; }
 
-        private List<Role> Items { get; set; }
+        private List<Account> Items { get; set; }
 
-        static RolesTab()
+        static AccountsTab()
         {
-            ItemType = typeof(Role);
+            ItemType = typeof(Account);
             ItemProperties = GetItemProperties();
         }
 
-        public RolesTab()
+        public AccountsTab()
         {
             InitializeComponent();
             DataContext = this;
@@ -40,7 +41,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
             LocalizationManager.LanguageChanged += OnLanguageChanged;
         }
 
-        ~RolesTab()
+        ~AccountsTab()
         {
             LocalizationManager.LanguageChanged -= OnLanguageChanged;
         }
@@ -109,13 +110,19 @@ namespace EduOrgAMS.Client.Pages.Tabs
             TableGrid.Items.Clear();
             TableGrid.Columns.Clear();
 
+            await using var context = DatabaseManager
+                .CreateContext();
+
+            await context.Users.LoadAsync()
+                .ConfigureAwait(true);
+
             TableGrid.Columns.Add(new DataGridNumericUpDownColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Id))
+                    Path = new PropertyPath(nameof(Account.Id))
                 }
             });
             TableGrid.Columns.Add(new DataGridTextColumn
@@ -124,7 +131,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Name))
+                    Path = new PropertyPath(nameof(Account.Login))
                 }
             });
             TableGrid.Columns.Add(new DataGridTextColumn
@@ -133,16 +140,39 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Permissions))
+                    Path = new PropertyPath(nameof(Account.Password))
                 }
             });
-            TableGrid.Columns.Add(new DataGridCheckBoxColumn
+            TableGrid.Columns.Add(new DataGridTextColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.IsAdmin))
+                    Path = new PropertyPath(nameof(Account.Token))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridTextColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(Account.TokenExpirationDate)),
+                    Converter = new UnixTimeToStringConverter()
+                }
+            });
+            TableGrid.Columns.Add(new DataGridComboBoxColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                ItemsSource = new List<User>(
+                    context.Users),
+                DisplayMemberPath = $"{nameof(User.FullName)}",
+                SelectedValuePath = $"{nameof(User.Id)}",
+                SelectedValueBinding = new Binding
+                {
+                    Path = new PropertyPath(nameof(Account.UserId))
                 }
             });
 
@@ -150,13 +180,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
             Items.Clear();
 
-            await using var context = DatabaseManager
-                .CreateContext();
-
-            await context.Roles.LoadAsync()
+            await context.Accounts.LoadAsync()
                 .ConfigureAwait(true);
 
-            Items.AddRange(context.Roles);
+            Items.AddRange(context.Accounts);
 
             TableGrid.ItemsSource = Items;
         }
@@ -188,10 +215,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
             ShowOverlay();
         }
 
-        private RolesAddEdit ShowAddEdit(Role item,
+        private AccountsAddEdit ShowAddEdit(Account item,
             AddEditModeType mode)
         {
-            var control = new RolesAddEdit(
+            var control = new AccountsAddEdit(
                 item, mode);
 
             control.SaveButtonClick += AddEdit_SaveButtonClick;
@@ -206,7 +233,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
         {
             base.OnCreated(sender, e);
 
-            Items = new List<Role>(128);
+            Items = new List<Account>(128);
 
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
@@ -266,7 +293,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = new Role();
+            var item = new Account();
 
             ShowAddEdit(item, AddEditModeType.Add);
         }
@@ -285,8 +312,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as Account
+                       ?? TableGrid.SelectedCells[0].Item as Account;
 
             if (item == null)
                 return;
@@ -316,8 +343,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as Account
+                       ?? TableGrid.SelectedCells[0].Item as Account;
 
             if (item == null)
                 return;

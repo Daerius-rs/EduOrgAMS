@@ -19,20 +19,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EduOrgAMS.Client.Pages.Tabs
 {
-    public partial class RolesTab : TabContent
+    public partial class CoursesTab : TabContent
     {
         private static Type ItemType { get; }
         private static ReadOnlyDictionary<string, PropertyInfo> ItemProperties { get; }
 
-        private List<Role> Items { get; set; }
+        private List<Course> Items { get; set; }
 
-        static RolesTab()
+        static CoursesTab()
         {
-            ItemType = typeof(Role);
+            ItemType = typeof(Course);
             ItemProperties = GetItemProperties();
         }
 
-        public RolesTab()
+        public CoursesTab()
         {
             InitializeComponent();
             DataContext = this;
@@ -40,7 +40,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
             LocalizationManager.LanguageChanged += OnLanguageChanged;
         }
 
-        ~RolesTab()
+        ~CoursesTab()
         {
             LocalizationManager.LanguageChanged -= OnLanguageChanged;
         }
@@ -109,13 +109,46 @@ namespace EduOrgAMS.Client.Pages.Tabs
             TableGrid.Items.Clear();
             TableGrid.Columns.Clear();
 
+            await using var context = DatabaseManager
+                .CreateContext();
+
+            await context.Groups.LoadAsync()
+                .ConfigureAwait(true);
+
             TableGrid.Columns.Add(new DataGridNumericUpDownColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Id))
+                    Path = new PropertyPath(nameof(Course.Id))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridNumericUpDownColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(Course.Number))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridNumericUpDownColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(Course.StartYear))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridNumericUpDownColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(Course.EndYear))
                 }
             });
             TableGrid.Columns.Add(new DataGridTextColumn
@@ -124,25 +157,20 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Name))
+                    Path = new PropertyPath(nameof(Course.LessonsFinalGrades))
                 }
             });
-            TableGrid.Columns.Add(new DataGridTextColumn
+            TableGrid.Columns.Add(new DataGridComboBoxColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
-                Binding = new Binding
+                ItemsSource = new List<Group>(
+                    context.Groups),
+                DisplayMemberPath = $"{nameof(Group.Name)}",
+                SelectedValuePath = $"{nameof(Group.Id)}",
+                SelectedValueBinding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Permissions))
-                }
-            });
-            TableGrid.Columns.Add(new DataGridCheckBoxColumn
-            {
-                Visibility = Visibility.Visible,
-                IsReadOnly = true,
-                Binding = new Binding
-                {
-                    Path = new PropertyPath(nameof(Role.IsAdmin))
+                    Path = new PropertyPath(nameof(Course.GroupId))
                 }
             });
 
@@ -150,13 +178,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
             Items.Clear();
 
-            await using var context = DatabaseManager
-                .CreateContext();
-
-            await context.Roles.LoadAsync()
+            await context.Courses.LoadAsync()
                 .ConfigureAwait(true);
 
-            Items.AddRange(context.Roles);
+            Items.AddRange(context.Courses);
 
             TableGrid.ItemsSource = Items;
         }
@@ -188,10 +213,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
             ShowOverlay();
         }
 
-        private RolesAddEdit ShowAddEdit(Role item,
+        private CoursesAddEdit ShowAddEdit(Course item,
             AddEditModeType mode)
         {
-            var control = new RolesAddEdit(
+            var control = new CoursesAddEdit(
                 item, mode);
 
             control.SaveButtonClick += AddEdit_SaveButtonClick;
@@ -206,7 +231,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
         {
             base.OnCreated(sender, e);
 
-            Items = new List<Role>(128);
+            Items = new List<Course>(128);
 
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
@@ -266,7 +291,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = new Role();
+            var item = new Course();
 
             ShowAddEdit(item, AddEditModeType.Add);
         }
@@ -285,8 +310,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as Course
+                       ?? TableGrid.SelectedCells[0].Item as Course;
 
             if (item == null)
                 return;
@@ -316,8 +341,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as Course
+                       ?? TableGrid.SelectedCells[0].Item as Course;
 
             if (item == null)
                 return;

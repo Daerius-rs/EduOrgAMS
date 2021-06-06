@@ -8,31 +8,34 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using EduOrgAMS.Client.Converters;
 using EduOrgAMS.Client.Database;
 using EduOrgAMS.Client.Database.Entities;
 using EduOrgAMS.Client.Dialogs;
 using EduOrgAMS.Client.Localization;
+using EduOrgAMS.Client.Navigation;
 using EduOrgAMS.Client.Pages.Tabs.AddEdit;
+using EduOrgAMS.Client.Pages.ViewModel;
 using EduOrgAMS.Client.Utils;
 using MahApps.Metro.Controls;
 using Microsoft.EntityFrameworkCore;
 
 namespace EduOrgAMS.Client.Pages.Tabs
 {
-    public partial class RolesTab : TabContent
+    public partial class UsersTab : TabContent
     {
         private static Type ItemType { get; }
         private static ReadOnlyDictionary<string, PropertyInfo> ItemProperties { get; }
 
-        private List<Role> Items { get; set; }
+        private List<User> Items { get; set; }
 
-        static RolesTab()
+        static UsersTab()
         {
-            ItemType = typeof(Role);
+            ItemType = typeof(User);
             ItemProperties = GetItemProperties();
         }
 
-        public RolesTab()
+        public UsersTab()
         {
             InitializeComponent();
             DataContext = this;
@@ -40,7 +43,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
             LocalizationManager.LanguageChanged += OnLanguageChanged;
         }
 
-        ~RolesTab()
+        ~UsersTab()
         {
             LocalizationManager.LanguageChanged -= OnLanguageChanged;
         }
@@ -109,13 +112,23 @@ namespace EduOrgAMS.Client.Pages.Tabs
             TableGrid.Items.Clear();
             TableGrid.Columns.Clear();
 
+            await using var context = DatabaseManager
+                .CreateContext();
+
+            await context.Genders.LoadAsync()
+                .ConfigureAwait(true);
+            await context.Roles.LoadAsync()
+                .ConfigureAwait(true);
+            await context.Groups.LoadAsync()
+                .ConfigureAwait(true);
+
             TableGrid.Columns.Add(new DataGridNumericUpDownColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Id))
+                    Path = new PropertyPath(nameof(User.Id))
                 }
             });
             TableGrid.Columns.Add(new DataGridTextColumn
@@ -124,7 +137,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Name))
+                    Path = new PropertyPath(nameof(User.LastName))
                 }
             });
             TableGrid.Columns.Add(new DataGridTextColumn
@@ -133,7 +146,98 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Permissions))
+                    Path = new PropertyPath(nameof(User.FirstName))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridTextColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(User.Patronymic))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridComboBoxColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                ItemsSource = new List<Gender>(
+                    context.Genders),
+                DisplayMemberPath = $"{nameof(Gender.Name)}",
+                SelectedValuePath = $"{nameof(Gender.Id)}",
+                SelectedValueBinding = new Binding
+                {
+                    Path = new PropertyPath(nameof(User.GenderId))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridTextColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(User.BirthDate)),
+                    Converter = new UnixTimeToStringConverter()
+                }
+            });
+            TableGrid.Columns.Add(new DataGridTextColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(User.PhoneNumber))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridTextColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(User.Email))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridTextColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(User.Address))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridTextColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(User.AvatarUrl))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridComboBoxColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                ItemsSource = new List<Role>(
+                    context.Roles),
+                DisplayMemberPath = $"{nameof(Role.Name)}",
+                SelectedValuePath = $"{nameof(Role.Id)}",
+                SelectedValueBinding = new Binding
+                {
+                    Path = new PropertyPath(nameof(User.RoleId))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridTextColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(User.RegistrationDate)),
+                    Converter = new UnixTimeToStringConverter()
                 }
             });
             TableGrid.Columns.Add(new DataGridCheckBoxColumn
@@ -142,7 +246,20 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.IsAdmin))
+                    Path = new PropertyPath(nameof(User.Dismissed))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridComboBoxColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                ItemsSource = new List<Group>(
+                    context.Groups),
+                DisplayMemberPath = $"{nameof(Group.Name)}",
+                SelectedValuePath = $"{nameof(Group.Id)}",
+                SelectedValueBinding = new Binding
+                {
+                    Path = new PropertyPath(nameof(User.GroupId))
                 }
             });
 
@@ -150,13 +267,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
             Items.Clear();
 
-            await using var context = DatabaseManager
-                .CreateContext();
-
-            await context.Roles.LoadAsync()
+            await context.Users.LoadAsync()
                 .ConfigureAwait(true);
 
-            Items.AddRange(context.Roles);
+            Items.AddRange(context.Users);
 
             TableGrid.ItemsSource = Items;
         }
@@ -188,10 +302,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
             ShowOverlay();
         }
 
-        private RolesAddEdit ShowAddEdit(Role item,
+        private UsersAddEdit ShowAddEdit(User item,
             AddEditModeType mode)
         {
-            var control = new RolesAddEdit(
+            var control = new UsersAddEdit(
                 item, mode);
 
             control.SaveButtonClick += AddEdit_SaveButtonClick;
@@ -206,7 +320,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
         {
             base.OnCreated(sender, e);
 
-            Items = new List<Role>(128);
+            Items = new List<User>(128);
 
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
@@ -266,7 +380,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = new Role();
+            var item = new User();
 
             ShowAddEdit(item, AddEditModeType.Add);
         }
@@ -285,8 +399,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as User
+                       ?? TableGrid.SelectedCells[0].Item as User;
 
             if (item == null)
                 return;
@@ -316,8 +430,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as User
+                       ?? TableGrid.SelectedCells[0].Item as User;
 
             if (item == null)
                 return;
@@ -329,6 +443,35 @@ namespace EduOrgAMS.Client.Pages.Tabs
         {
             await Update()
                 .ConfigureAwait(true);
+        }
+
+        private async void OpenUserProfile_Click(object sender, RoutedEventArgs e)
+        {
+            if (TableGrid.SelectedItem == null && TableGrid.SelectedCells.Count == 0)
+            {
+                var message = LocalizationUtils
+                    .GetLocalized("NoRowOrCellSelectedInTableErrorMessage");
+
+                await DialogManager.ShowErrorDialog(
+                        message)
+                    .ConfigureAwait(true);
+
+                return;
+            }
+
+            var item = TableGrid.SelectedItem as User
+                       ?? TableGrid.SelectedCells[0].Item as User;
+
+            if (item == null)
+                return;
+
+            NavigationController.Instance.RequestPage<UserProfilePage>(new UserProfileViewModel
+            {
+                CurrentUser =
+                {
+                    Id = item.Id
+                }
+            });
         }
     }
 }

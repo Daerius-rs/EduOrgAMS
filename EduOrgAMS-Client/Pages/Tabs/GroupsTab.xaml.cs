@@ -19,20 +19,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EduOrgAMS.Client.Pages.Tabs
 {
-    public partial class RolesTab : TabContent
+    public partial class GroupsTab : TabContent
     {
         private static Type ItemType { get; }
         private static ReadOnlyDictionary<string, PropertyInfo> ItemProperties { get; }
 
-        private List<Role> Items { get; set; }
+        private List<Group> Items { get; set; }
 
-        static RolesTab()
+        static GroupsTab()
         {
-            ItemType = typeof(Role);
+            ItemType = typeof(Group);
             ItemProperties = GetItemProperties();
         }
 
-        public RolesTab()
+        public GroupsTab()
         {
             InitializeComponent();
             DataContext = this;
@@ -40,7 +40,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
             LocalizationManager.LanguageChanged += OnLanguageChanged;
         }
 
-        ~RolesTab()
+        ~GroupsTab()
         {
             LocalizationManager.LanguageChanged -= OnLanguageChanged;
         }
@@ -109,40 +109,65 @@ namespace EduOrgAMS.Client.Pages.Tabs
             TableGrid.Items.Clear();
             TableGrid.Columns.Clear();
 
+            await using var context = DatabaseManager
+                .CreateContext();
+
+            await context.Professions.LoadAsync()
+                .ConfigureAwait(true);
+            await context.Users.LoadAsync()
+                .ConfigureAwait(true);
+
             TableGrid.Columns.Add(new DataGridNumericUpDownColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Id))
+                    Path = new PropertyPath(nameof(Group.Id))
                 }
             });
-            TableGrid.Columns.Add(new DataGridTextColumn
+            TableGrid.Columns.Add(new DataGridNumericUpDownColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Name))
+                    Path = new PropertyPath(nameof(Group.RecruitYear))
                 }
             });
-            TableGrid.Columns.Add(new DataGridTextColumn
+            TableGrid.Columns.Add(new DataGridNumericUpDownColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Permissions))
+                    Path = new PropertyPath(nameof(Group.BaseClassesCount))
                 }
             });
-            TableGrid.Columns.Add(new DataGridCheckBoxColumn
+            TableGrid.Columns.Add(new DataGridComboBoxColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
-                Binding = new Binding
+                ItemsSource = new List<Profession>(
+                    context.Professions),
+                DisplayMemberPath = $"{nameof(Profession.Name)}",
+                SelectedValuePath = $"{nameof(Profession.Id)}",
+                SelectedValueBinding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.IsAdmin))
+                    Path = new PropertyPath(nameof(Group.ProfessionId))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridComboBoxColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                ItemsSource = new List<User>(
+                    context.Users),
+                DisplayMemberPath = $"{nameof(User.FullName)}",
+                SelectedValuePath = $"{nameof(User.Id)}",
+                SelectedValueBinding = new Binding
+                {
+                    Path = new PropertyPath(nameof(Group.CuratorId))
                 }
             });
 
@@ -150,13 +175,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
             Items.Clear();
 
-            await using var context = DatabaseManager
-                .CreateContext();
-
-            await context.Roles.LoadAsync()
+            await context.Groups.LoadAsync()
                 .ConfigureAwait(true);
 
-            Items.AddRange(context.Roles);
+            Items.AddRange(context.Groups);
 
             TableGrid.ItemsSource = Items;
         }
@@ -188,10 +210,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
             ShowOverlay();
         }
 
-        private RolesAddEdit ShowAddEdit(Role item,
+        private GroupsAddEdit ShowAddEdit(Group item,
             AddEditModeType mode)
         {
-            var control = new RolesAddEdit(
+            var control = new GroupsAddEdit(
                 item, mode);
 
             control.SaveButtonClick += AddEdit_SaveButtonClick;
@@ -206,7 +228,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
         {
             base.OnCreated(sender, e);
 
-            Items = new List<Role>(128);
+            Items = new List<Group>(128);
 
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
@@ -266,7 +288,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = new Role();
+            var item = new Group();
 
             ShowAddEdit(item, AddEditModeType.Add);
         }
@@ -285,8 +307,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as Group
+                       ?? TableGrid.SelectedCells[0].Item as Group;
 
             if (item == null)
                 return;
@@ -316,8 +338,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as Group
+                       ?? TableGrid.SelectedCells[0].Item as Group;
 
             if (item == null)
                 return;

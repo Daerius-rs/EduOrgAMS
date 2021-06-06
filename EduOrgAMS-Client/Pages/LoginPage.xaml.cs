@@ -301,7 +301,7 @@ namespace EduOrgAMS.Client.Pages
             if (!_autoUpdateStatusTimer.Enabled)
                 return;
 
-            if (PageState != PageStateType.Loaded)
+            if (State != PageStateType.Loaded)
                 return;
 
             await UpdateStatusAccounts()

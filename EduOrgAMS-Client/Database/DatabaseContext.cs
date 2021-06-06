@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Windows;
 using EduOrgAMS.Client.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +25,8 @@ namespace EduOrgAMS.Client.Database
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseMySql(DatabaseManager.ConnectionString,
-                DatabaseManager.ServerVersion);
+                DatabaseManager.ServerVersion, mySqlOptions =>
+                    mySqlOptions.EnableRetryOnFailure());
 
             base.OnConfiguring(options);
         }

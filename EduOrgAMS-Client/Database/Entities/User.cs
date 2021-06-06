@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using EduOrgAMS.Client.Utils;
 
 namespace EduOrgAMS.Client.Database.Entities
 {
@@ -161,7 +162,21 @@ namespace EduOrgAMS.Client.Database.Entities
                 OnPropertyChanged(nameof(Role));
             }
         }
-        public ulong RegistrationDate { get; set; }
+        [NotMapped]
+        private ulong _registrationDate = TimeUtils.ToUnixTimeStamp(DateTime.UtcNow);
+        public ulong RegistrationDate
+        {
+            get
+            {
+                return _registrationDate;
+            }
+            set
+            {
+                _registrationDate = value;
+
+                OnPropertyChanged(nameof(RegistrationDate));
+            }
+        }
         public bool Dismissed { get; set; }
         [NotMapped]
         private int? _groupId;
@@ -219,6 +234,7 @@ namespace EduOrgAMS.Client.Database.Entities
             }
         }
 
+        [NotMapped]
         public virtual ICollection<Group> CuratedGroups
         {
             get

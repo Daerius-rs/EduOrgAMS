@@ -17,6 +17,14 @@ namespace EduOrgAMS.Client.Database.Entities
         };
 
         [NotMapped]
+        public string Name
+        {
+            get
+            {
+                return $"{Group.Name} №{Number} {StartYear}-{EndYear}";
+            }
+        }
+        [NotMapped]
         private Dictionary<int, Dictionary<int, LessonFinalGrade>> _lessonsFinalGradesList;
         [NotMapped]
         public Dictionary<int, Dictionary<int, LessonFinalGrade>> LessonsFinalGradesList
@@ -67,11 +75,56 @@ namespace EduOrgAMS.Client.Database.Entities
                 OnPropertyChanged(nameof(Group));
             }
         }
-        public byte Number { get; set; }
-        public ushort StartYear { get; set; }
-        public ushort EndYear { get; set; }
         [NotMapped]
-        private string _lessonsFinalGrades;
+        private byte _number;
+        public byte Number
+        {
+            get
+            {
+                return _number;
+            }
+            set
+            {
+                _number = value;
+
+                OnPropertyChanged(nameof(Number));
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+        [NotMapped]
+        private ushort _startYear;
+        public ushort StartYear
+        {
+            get
+            {
+                return _startYear;
+            }
+            set
+            {
+                _startYear = value;
+
+                OnPropertyChanged(nameof(StartYear));
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+        [NotMapped]
+        private ushort _endYear;
+        public ushort EndYear
+        {
+            get
+            {
+                return _endYear;
+            }
+            set
+            {
+                _endYear = value;
+
+                OnPropertyChanged(nameof(EndYear));
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+        [NotMapped]
+        private string _lessonsFinalGrades = "{NestableListL||}";
         public string LessonsFinalGrades
         {
             get

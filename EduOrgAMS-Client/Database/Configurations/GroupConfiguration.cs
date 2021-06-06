@@ -11,8 +11,8 @@ namespace EduOrgAMS.Client.Database.Configurations
         {
             builder.HasKey(group => group.Id);
 
-            builder.HasOne(group => group.Curator)
-                .WithMany(user => user.CuratedGroups);
+            //builder.HasOne(group => group.Curator)
+            //    .WithMany(user => user.CuratedGroups);
 
             builder.Property(group => group.Id)
                 .ValueGeneratedOnAdd();

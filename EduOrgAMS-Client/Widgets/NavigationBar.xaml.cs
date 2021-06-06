@@ -151,7 +151,7 @@ namespace EduOrgAMS.Client.Widgets
                     }
                     else if (button.Information == "UserProfilePage")
                     {
-                        if (NavigationController.Instance.PageContent.Content is UserProfilePage page
+                        if (NavigationController.Instance.PageLayout.Content is UserProfilePage page
                             && page.DataContext is UserProfileViewModel viewModel
                             && viewModel.CurrentUser.Id == SettingsManager.PersistentSettings.CurrentUser.Id)
                         {

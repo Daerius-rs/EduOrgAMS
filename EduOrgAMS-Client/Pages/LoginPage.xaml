@@ -146,15 +146,13 @@
                     </Grid.ColumnDefinitions>
 
                     <Button Grid.Column="0" Grid.ColumnSpan="3"
-                            Name="btnLogin" MinHeight="20"
-                            FontSize="16" Margin="40 5 40 5"
-                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                            Click="btnLogin_Click">
-                        <TextBlock Text="{DynamicResource ResourceKey=SignIn}"
-                                   MinHeight="10" FontSize="16"
-                                   VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   TextAlignment="Center" TextWrapping="Wrap"/>
-                    </Button>
+                            MinHeight="20"
+                            x:Name="btnLogin"
+                            Content="{DynamicResource ResourceKey=SignIn}"
+                            FontSize="16"
+                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent.TextWrapping}"
+                            Margin="40 5 40 5"
+                            Click="btnLogin_Click"/>
                     <widgets:IconToggleButton Grid.Column="2"
                                               x:Name="btnOpenStoredAccounts"
                                               Width="25" Height="25"

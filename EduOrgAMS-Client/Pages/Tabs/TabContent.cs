@@ -9,7 +9,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
         public bool IsCreated { get; private set; }
         public bool IsOnEnterActive { get; set; }
         public bool IsOnExitActive { get; set; }
-        public TabStateType WidgetState { get; set; }
+        public TabStateType State { get; protected set; }
 
         protected TabContent()
         {
@@ -22,7 +22,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
             IsCreated = false;
             IsOnEnterActive = true;
             IsOnExitActive = true;
-            WidgetState = TabStateType.Unknown;
+            State = TabStateType.Unknown;
         }
 
         protected virtual void OnCreated(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
         protected virtual void OnEnter(object sender, RoutedEventArgs e)
         {
-            WidgetState = TabStateType.Loaded;
+            State = TabStateType.Loaded;
 
             if (!IsOnEnterActive)
             {
@@ -53,7 +53,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
         protected virtual void OnExit(object sender, RoutedEventArgs e)
         {
-            WidgetState = TabStateType.Unloaded;
+            State = TabStateType.Unloaded;
 
             if (!IsOnExitActive)
             {

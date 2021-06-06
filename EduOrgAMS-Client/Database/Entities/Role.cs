@@ -54,7 +54,7 @@ namespace EduOrgAMS.Client.Database.Entities
         }
         public string Name { get; set; }
         [NotMapped]
-        private string _permissions;
+        private string _permissions = "{NestableListL||}";
         public string Permissions
         {
             get

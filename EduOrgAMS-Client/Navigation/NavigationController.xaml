@@ -72,11 +72,15 @@
             </controls:SplitView.Pane>
 
             <Grid>
-                <controls:TransitioningContentControl Name="PageContent"/>
-                <Grid x:Name="OverlayLayout">
-                    <Button Background="{DynamicResource Overlay.Background}" Style="{StaticResource OverlayButton}"
-                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="OverlayBackground_Click"/>
-                    <controls:TransitioningContentControl Margin="50" x:Name="OverlayContent"/>
+                <controls:TransitioningContentControl x:Name="PageLayout"/>
+                <Grid x:Name="OverlayGrid"
+                      Visibility="Collapsed">
+                    <Button Background="{DynamicResource Overlay.Background}"
+                            Style="{StaticResource OverlayButton}"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            Click="OverlayBackground_Click"/>
+                    <controls:TransitioningContentControl x:Name="OverlayLayout"
+                                                          Margin="50"/>
                 </Grid>
             </Grid>
         </controls:SplitView>

@@ -27,34 +27,120 @@
                    TargetType="{x:Type Label}">
                 <Setter Property="FontSize" Value="22" />
             </Style>
+
             <Style TargetType="TextBlock" x:Key="AccentHeader">
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="FontWeight" Value="DemiBold"/>
                 <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Accent}"/>
             </Style>
+
             <Style TargetType="TextBlock" x:Key="Header1">
                 <Setter Property="FontSize" Value="22" />
                 <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Text}"/>
             </Style>
+
             <Style TargetType="TextBlock" x:Key="Header2">
                 <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Text}"/>
                 <Setter Property="FontSize" Value="20"/>
             </Style>
+
             <Style TargetType="TextBlock" x:Key="Header3">
                 <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Text}"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
+
             <Style TargetType="TextBlock" x:Key="Paragraph">
                 <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Text}"/>
             </Style>
 
-            <Style x:Key="NormalCasingColumnHeader" 
-                   BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}" 
-                   TargetType="{x:Type DataGridColumnHeader}">
+            <Style x:Key="NormalCasingColumnHeader"
+                   TargetType="{x:Type DataGridColumnHeader}"
+                   BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}">
                 <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Normal"/>
             </Style>
 
-            <Style x:Key="DefaultDialog" TargetType="{x:Type controls:CustomDialog}"
+            <Style x:Key="MahApps.Styles.Button.Square.Accent.TextWrapping"
+                   TargetType="{x:Type ButtonBase}"
+                   BasedOn="{StaticResource MahApps.Styles.Button.Square.Accent}">
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ButtonBase}">
+                            <Grid>
+                                <controls:ClipBorder x:Name="Background"
+                                                     Background="{TemplateBinding Background}"
+                                                     BorderBrush="{TemplateBinding BorderBrush}"
+                                                     BorderThickness="{TemplateBinding BorderThickness}"
+                                                     CornerRadius="{TemplateBinding controls:ControlsHelper.CornerRadius}"
+                                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                <controls:ClipBorder x:Name="DisabledVisualElement"
+                                                     Background="{DynamicResource MahApps.Brushes.Control.Disabled}"
+                                                     CornerRadius="{TemplateBinding controls:ControlsHelper.CornerRadius}"
+                                                     IsHitTestVisible="False"
+                                                     Opacity="0"
+                                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                <Grid Margin="{TemplateBinding BorderThickness}">
+                                    <Rectangle x:Name="MouseOverRectangle"
+                                               Fill="{DynamicResource MahApps.Brushes.Button.AccentedSquare.Background.MouseOver}"
+                                               Opacity="0" />
+                                    <controls:ContentControlEx x:Name="PART_ContentPresenter"
+                                                               Padding="{TemplateBinding Padding}"
+                                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                               RecognizesAccessKey="{TemplateBinding controls:ControlsHelper.RecognizesAccessKey}"
+                                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                        <TextBlock Text="{TemplateBinding Content}"
+                                                   MinHeight="15"
+                                                   FontSize="{TemplateBinding FontSize}"
+                                                   TextAlignment="Center" TextWrapping="Wrap"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </controls:ContentControlEx>
+                                </Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DisabledVisualElement" Storyboard.TargetProperty="Opacity">
+                                                    <SplineDoubleKeyFrame KeyTime="0" Value="0.7" />
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_ContentPresenter" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                    <EasingDoubleKeyFrame KeyTime="0" Value="0.3" />
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <VisualState x:Name="Focused" />
+                                        <VisualState x:Name="Unfocused" />
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="ValidationStates">
+                                        <VisualState x:Name="Valid" />
+                                        <VisualState x:Name="InvalidFocused" />
+                                        <VisualState x:Name="InvalidUnfocused" />
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Button.AccentedSquare.Foreground.MouseOver}" />
+                                    <Setter TargetName="MouseOverRectangle" Property="Opacity" Value="1" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+                                    <Setter TargetName="MouseOverRectangle" Property="Opacity" Value="0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="DefaultDialog"
+                   TargetType="{x:Type controls:CustomDialog}"
                    BasedOn="{StaticResource MahApps.Styles.BaseMetroDialog}">
                 <Setter Property="Template">
                     <Setter.Value>

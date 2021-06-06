@@ -36,10 +36,11 @@ namespace EduOrgAMS.Client.Database
                         Password = "NDz3L25EkIT9mv7",
                         LoadBalance = MySqlLoadBalance.LeastConnections,
                         Pooling = true,
-                        MinimumPoolSize = 3,
-                        MaximumPoolSize = 20,
-                        ConnectionLifeTime = (uint)TimeSpan.FromMinutes(10).TotalSeconds,
-                        DefaultCommandTimeout = (uint)TimeSpan.FromSeconds(60).TotalSeconds,
+                        MinimumPoolSize = 5,
+                        MaximumPoolSize = 200,
+                        ConnectionLifeTime = (uint)TimeSpan.FromMinutes(5).TotalSeconds,
+                        ConnectionIdleTimeout = (uint)TimeSpan.FromSeconds(60).TotalSeconds,
+                        DefaultCommandTimeout = (uint)TimeSpan.FromSeconds(120).TotalSeconds,
                         ConnectionTimeout = (uint)TimeSpan.FromSeconds(60).TotalSeconds,
                         CharacterSet = CharSet.Utf8Mb4.Name
                     };
@@ -60,7 +61,8 @@ namespace EduOrgAMS.Client.Database
             string database, string login, string password,
             IPAddress address, ushort port = 3306,
             TimeSpan? commandTimeout = null, TimeSpan? connectionTimeout = null,
-            TimeSpan? connectionLifetime = null, CharSet charSet = null,
+            TimeSpan? connectionLifetime = null, TimeSpan? connectionIdle = null,
+            CharSet charSet = null,
             MySqlLoadBalance loadBalance = MySqlLoadBalance.LeastConnections)
         {
             if (IsInitialized)
@@ -73,9 +75,10 @@ namespace EduOrgAMS.Client.Database
                 address = IPAddress.Parse("127.0.0.1");
             }
 
-            commandTimeout ??= TimeSpan.FromSeconds(60);
+            commandTimeout ??= TimeSpan.FromSeconds(120);
             connectionTimeout ??= TimeSpan.FromSeconds(60);
-            connectionLifetime ??= TimeSpan.FromMinutes(10);
+            connectionLifetime ??= TimeSpan.FromMinutes(5);
+            connectionIdle ??= TimeSpan.FromSeconds(60);
             charSet ??= CharSet.Utf8Mb4;
 
             ConnectionStringBuilder = new MySqlConnectionStringBuilder
@@ -87,9 +90,10 @@ namespace EduOrgAMS.Client.Database
                 Password = password,
                 LoadBalance = loadBalance,
                 Pooling = true,
-                MinimumPoolSize = 3,
-                MaximumPoolSize = 20,
+                MinimumPoolSize = 5,
+                MaximumPoolSize = 200,
                 ConnectionLifeTime = (uint)connectionLifetime.Value.TotalSeconds,
+                ConnectionIdleTimeout = (uint)connectionIdle.Value.TotalSeconds,
                 DefaultCommandTimeout = (uint)commandTimeout.Value.TotalSeconds,
                 ConnectionTimeout = (uint)connectionTimeout.Value.TotalSeconds,
                 CharacterSet = charSet.Name

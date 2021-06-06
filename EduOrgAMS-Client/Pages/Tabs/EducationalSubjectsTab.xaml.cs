@@ -19,20 +19,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EduOrgAMS.Client.Pages.Tabs
 {
-    public partial class RolesTab : TabContent
+    public partial class EducationalSubjectsTab : TabContent
     {
         private static Type ItemType { get; }
         private static ReadOnlyDictionary<string, PropertyInfo> ItemProperties { get; }
 
-        private List<Role> Items { get; set; }
+        private List<EducationalSubject> Items { get; set; }
 
-        static RolesTab()
+        static EducationalSubjectsTab()
         {
-            ItemType = typeof(Role);
+            ItemType = typeof(EducationalSubject);
             ItemProperties = GetItemProperties();
         }
 
-        public RolesTab()
+        public EducationalSubjectsTab()
         {
             InitializeComponent();
             DataContext = this;
@@ -40,7 +40,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
             LocalizationManager.LanguageChanged += OnLanguageChanged;
         }
 
-        ~RolesTab()
+        ~EducationalSubjectsTab()
         {
             LocalizationManager.LanguageChanged -= OnLanguageChanged;
         }
@@ -115,7 +115,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Id))
+                    Path = new PropertyPath(nameof(EducationalSubject.Id))
                 }
             });
             TableGrid.Columns.Add(new DataGridTextColumn
@@ -124,25 +124,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Name))
-                }
-            });
-            TableGrid.Columns.Add(new DataGridTextColumn
-            {
-                Visibility = Visibility.Visible,
-                IsReadOnly = true,
-                Binding = new Binding
-                {
-                    Path = new PropertyPath(nameof(Role.Permissions))
-                }
-            });
-            TableGrid.Columns.Add(new DataGridCheckBoxColumn
-            {
-                Visibility = Visibility.Visible,
-                IsReadOnly = true,
-                Binding = new Binding
-                {
-                    Path = new PropertyPath(nameof(Role.IsAdmin))
+                    Path = new PropertyPath(nameof(EducationalSubject.Name))
                 }
             });
 
@@ -153,10 +135,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
             await using var context = DatabaseManager
                 .CreateContext();
 
-            await context.Roles.LoadAsync()
+            await context.EducationalSubjects.LoadAsync()
                 .ConfigureAwait(true);
 
-            Items.AddRange(context.Roles);
+            Items.AddRange(context.EducationalSubjects);
 
             TableGrid.ItemsSource = Items;
         }
@@ -188,10 +170,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
             ShowOverlay();
         }
 
-        private RolesAddEdit ShowAddEdit(Role item,
+        private EducationalSubjectsAddEdit ShowAddEdit(EducationalSubject item,
             AddEditModeType mode)
         {
-            var control = new RolesAddEdit(
+            var control = new EducationalSubjectsAddEdit(
                 item, mode);
 
             control.SaveButtonClick += AddEdit_SaveButtonClick;
@@ -206,7 +188,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
         {
             base.OnCreated(sender, e);
 
-            Items = new List<Role>(128);
+            Items = new List<EducationalSubject>(128);
 
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
@@ -266,7 +248,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = new Role();
+            var item = new EducationalSubject();
 
             ShowAddEdit(item, AddEditModeType.Add);
         }
@@ -285,8 +267,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as EducationalSubject
+                       ?? TableGrid.SelectedCells[0].Item as EducationalSubject;
 
             if (item == null)
                 return;
@@ -316,8 +298,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as EducationalSubject
+                       ?? TableGrid.SelectedCells[0].Item as EducationalSubject;
 
             if (item == null)
                 return;

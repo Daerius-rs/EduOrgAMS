@@ -94,29 +94,17 @@
                                                Style="{StaticResource AccentHeader}"
                                                HorizontalAlignment="Left"
                                                Margin="5 0 5 10"/>
-                                    <Button Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                                            Margin="5" Click="btnChangePassword_Click">
-                                        <TextBlock Text="{DynamicResource ResourceKey=ChangePassword}"
-                                                   MinHeight="15" FontSize="12"
-                                                   TextAlignment="Center" TextWrapping="Wrap"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Button>
-                                    <Button Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                    <Button Content="{DynamicResource ResourceKey=ChangePassword}"
+                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent.TextWrapping}"
+                                            Margin="5" Click="btnChangePassword_Click"/>
+                                    <Button Content="{DynamicResource ResourceKey=SignInToAnotherAccount}"
+                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent.TextWrapping}"
                                             Visibility="Collapsed"
-                                            Margin="5" Click="btnSignInToAnotherAccount_Click">
-                                        <TextBlock Text="{DynamicResource ResourceKey=SignInToAnotherAccount}"
-                                                   MinHeight="15" FontSize="12"
-                                                   TextAlignment="Center" TextWrapping="Wrap"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Button>
-                                    <Button Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                            Margin="5" Click="btnSignInToAnotherAccount_Click"/>
+                                    <Button Content="{DynamicResource ResourceKey=SignOut}"
+                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent.TextWrapping}"
                                             Background="#FF9F0000"
-                                            Margin="5" Click="btnSignOutAccount_Click">
-                                        <TextBlock Text="{DynamicResource ResourceKey=SignOut}"
-                                                   MinHeight="15" FontSize="12"
-                                                   TextAlignment="Center" TextWrapping="Wrap"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Button>
+                                            Margin="5" Click="btnSignOutAccount_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

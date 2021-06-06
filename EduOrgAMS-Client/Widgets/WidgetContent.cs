@@ -9,7 +9,7 @@ namespace EduOrgAMS.Client.Widgets
         public bool IsCreated { get; private set; }
         public bool IsOnEnterActive { get; set; }
         public bool IsOnExitActive { get; set; }
-        public WidgetStateType WidgetState { get; set; }
+        public WidgetStateType State { get; protected set; }
 
         protected WidgetContent()
         {
@@ -22,7 +22,7 @@ namespace EduOrgAMS.Client.Widgets
             IsCreated = false;
             IsOnEnterActive = true;
             IsOnExitActive = true;
-            WidgetState = WidgetStateType.Unknown;
+            State = WidgetStateType.Unknown;
         }
 
         protected virtual void OnCreated(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace EduOrgAMS.Client.Widgets
 
         protected virtual void OnEnter(object sender, RoutedEventArgs e)
         {
-            WidgetState = WidgetStateType.Loaded;
+            State = WidgetStateType.Loaded;
 
             if (!IsOnEnterActive)
             {
@@ -53,7 +53,7 @@ namespace EduOrgAMS.Client.Widgets
 
         protected virtual void OnExit(object sender, RoutedEventArgs e)
         {
-            WidgetState = WidgetStateType.Unloaded;
+            State = WidgetStateType.Unloaded;
 
             if (!IsOnExitActive)
             {

@@ -6,10 +6,10 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>EduOrgAMS.Client</RootNamespace>
     <AssemblyName>EduOrgAMS-Client</AssemblyName>
-    <AssemblyVersion>0.3.1.0</AssemblyVersion>
-    <FileVersion>0.3.1.0</FileVersion>
+    <AssemblyVersion>0.5.2.0</AssemblyVersion>
+    <FileVersion>0.5.2.0</FileVersion>
     <Product>EduOrgAMS-Client</Product>
-    <Version>0.3.1</Version>
+    <Version>0.5.2</Version>
     <Description>Educational Organization AMS (Automated Management System)</Description>
     <Authors>Dmitry Ponomarev</Authors>
     <Company>RISStudio</Company>
@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Emoji.Wpf" Version="0.3.0">
+    <PackageReference Include="Emoji.Wpf" Version="0.3.3">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
     <PackageReference Include="MahApps.Metro" Version="2.4.5" />
@@ -93,7 +93,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Tabs\AddEdit\" />
     <Folder Include="Storage\Configurations\" />
     <Folder Include="Storage\Entities\" />
   </ItemGroup>

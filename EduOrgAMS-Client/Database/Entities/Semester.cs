@@ -111,7 +111,7 @@ namespace EduOrgAMS.Client.Database.Entities
         public ulong StartDate { get; set; }
         public ulong EndDate { get; set; }
         [NotMapped]
-        private string _lessonsMisses;
+        private string _lessonsMisses = "{NestableListL||}";
         public string LessonsMisses
         {
             get
@@ -129,7 +129,7 @@ namespace EduOrgAMS.Client.Database.Entities
             }
         }
         [NotMapped]
-        private string _lessonsGrades;
+        private string _lessonsGrades = "{NestableListL||}";
         public string LessonsGrades
         {
             get
@@ -147,7 +147,7 @@ namespace EduOrgAMS.Client.Database.Entities
             }
         }
         [NotMapped]
-        private string _lessonsFinalGrades;
+        private string _lessonsFinalGrades = "{NestableListL||}";
         public string LessonsFinalGrades
         {
             get

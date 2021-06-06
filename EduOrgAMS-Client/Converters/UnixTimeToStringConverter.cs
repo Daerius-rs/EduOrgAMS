@@ -16,22 +16,36 @@ namespace EduOrgAMS.Client.Converters
                 if (value is ulong longValue)
                     result = longValue;
 
-                return TimeUtils.ToDateTime(
-                        result <= 0
-                            ? 0
-                            : result)
-                    .ToString(CultureInfo.CurrentCulture);
+                return TimeUtils.ToDateTime(result)
+                    .ToString(CultureInfo.InvariantCulture);
             }
             catch (Exception)
             {
                 return TimeUtils.ToDateTime(0)
-                    .ToString(CultureInfo.CurrentCulture);
+                    .ToString(CultureInfo.InvariantCulture);
             }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Binding.DoNothing;
+            try
+            {
+                string result = string.Empty;
+
+                if (value is string stringValue)
+                    result = stringValue;
+
+                return TimeUtils.ToUnixTimeStamp(DateTime.Parse(
+                    result, CultureInfo.InvariantCulture));
+            }
+            catch (Exception)
+            {
+                string result = TimeUtils.ToDateTime(0)
+                    .ToString(CultureInfo.InvariantCulture);
+
+                return TimeUtils.ToUnixTimeStamp(DateTime.Parse(
+                    result, CultureInfo.InvariantCulture));
+            }
         }
     }
 }

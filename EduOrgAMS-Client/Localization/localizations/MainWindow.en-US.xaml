@@ -27,6 +27,11 @@
     <system:String x:Key="SignOut">Sign Out account</system:String>
     <system:String x:Key="Version">Version</system:String>
 
+    <system:String x:Key="EnterPasswordTitle">Entering password</system:String>
+
+    <system:String x:Key="Enum-AddEditModeType-Add">Adding</system:String>
+    <system:String x:Key="Enum-AddEditModeType-Edit">Editing</system:String>
+
     <system:String x:Key="ProfileStatTitle-FullName">Full name</system:String>
     <system:String x:Key="ProfileStatTitle-Role">Role</system:String>
     <system:String x:Key="ProfileStatTitle-Gender">Gender</system:String>
@@ -93,6 +98,20 @@
     <system:String x:Key="InvalidLoginOrPasswordErrorMessage">Invalid login or password</system:String>
     <system:String x:Key="InvalidTokenErrorMessage">Invalid token</system:String>
     <system:String x:Key="TokenExpiredErrorMessage">Token expired</system:String>
+    <system:String x:Key="NoRowOrCellSelectedInTableErrorMessage">No row or cell is selected in the table</system:String>
+
+    <system:String x:Key="MainPage-Header-Actions">Actions</system:String>
+    <system:String x:Key="MainPage-Button-DatabaseManagement">Database management</system:String>
+
+    <system:String x:Key="Table-Header-Accounts">Accounts</system:String>
+    <system:String x:Key="Table-Header-Courses">Courses</system:String>
+    <system:String x:Key="Table-Header-EducationalSubjects">Educational subjects</system:String>
+    <system:String x:Key="Table-Header-Genders">Genders</system:String>
+    <system:String x:Key="Table-Header-Groups">Groups</system:String>
+    <system:String x:Key="Table-Header-Professions">Professions</system:String>
+    <system:String x:Key="Table-Header-Roles">Roles</system:String>
+    <system:String x:Key="Table-Header-Semesters">Semesters</system:String>
+    <system:String x:Key="Table-Header-Users">Users</system:String>
 
     <system:String x:Key="Tab-Button-Add">Add</system:String>
     <system:String x:Key="Tab-Button-Edit">Edit</system:String>
@@ -100,11 +119,70 @@
     <system:String x:Key="Tab-Button-Update">Update</system:String>
     <system:String x:Key="Tab-Button-Save">Save</system:String>
 
+    <system:String x:Key="AddEdit-Button-Save">Save</system:String>
+    <system:String x:Key="AddEdit-Button-Cancel">Cancel</system:String>
+    <system:String x:Key="AddEdit-Button-Edit">Edit</system:String>
+
+    <system:String x:Key="AccountsTab-Header-Id">Id</system:String>
+    <system:String x:Key="AccountsTab-Header-Login">Login</system:String>
+    <system:String x:Key="AccountsTab-Header-Password">Password</system:String>
+    <system:String x:Key="AccountsTab-Header-Token">Token</system:String>
+    <system:String x:Key="AccountsTab-Header-TokenExpirationDate">Token expiration date</system:String>
+    <system:String x:Key="AccountsTab-Header-UserId">User</system:String>
+
+    <system:String x:Key="CoursesTab-Header-Id">Id</system:String>
+    <system:String x:Key="CoursesTab-Header-Number">Number</system:String>
+    <system:String x:Key="CoursesTab-Header-StartYear">Year of start</system:String>
+    <system:String x:Key="CoursesTab-Header-EndYear">Year of end</system:String>
+    <system:String x:Key="CoursesTab-Header-LessonsFinalGrades">Final grades</system:String>
+    <system:String x:Key="CoursesTab-Header-GroupId">Group</system:String>
+
+    <system:String x:Key="EducationalSubjectsTab-Header-Id">Id</system:String>
+    <system:String x:Key="EducationalSubjectsTab-Header-Name">Name</system:String>
+
+    <system:String x:Key="GendersTab-Header-Id">Id</system:String>
+    <system:String x:Key="GendersTab-Header-Name">Name</system:String>
+
+    <system:String x:Key="GroupsTab-Header-Id">Id</system:String>
+    <system:String x:Key="GroupsTab-Header-RecruitYear">Recruit year</system:String>
+    <system:String x:Key="GroupsTab-Header-BaseClassesCount">Base classes count</system:String>
+    <system:String x:Key="GroupsTab-Header-ProfessionId">Profession</system:String>
+    <system:String x:Key="GroupsTab-Header-CuratorId">Curator</system:String>
+
+    <system:String x:Key="ProfessionsTab-Header-Id">Id</system:String>
+    <system:String x:Key="ProfessionsTab-Header-Code">Code</system:String>
+    <system:String x:Key="ProfessionsTab-Header-Name">Name</system:String>
+    <system:String x:Key="ProfessionsTab-Header-ShortName">Short name</system:String>
+
     <system:String x:Key="RolesTab-Header-Id">Id</system:String>
     <system:String x:Key="RolesTab-Header-Name">Name</system:String>
     <system:String x:Key="RolesTab-Header-Permissions">Permissions</system:String>
     <system:String x:Key="RolesTab-Header-IsAdmin">Admin rights</system:String>
 
-    <system:String x:Key="DatabaseManagement">Database management</system:String>
+    <system:String x:Key="SemestersTab-Header-Id">Id</system:String>
+    <system:String x:Key="SemestersTab-Header-CourseId">Course</system:String>
+    <system:String x:Key="SemestersTab-Header-Number">Number</system:String>
+    <system:String x:Key="SemestersTab-Header-StartDate">Start date</system:String>
+    <system:String x:Key="SemestersTab-Header-EndDate">End date</system:String>
+    <system:String x:Key="SemestersTab-Header-LessonsMisses">Misses</system:String>
+    <system:String x:Key="SemestersTab-Header-LessonsGrades">Grades</system:String>
+    <system:String x:Key="SemestersTab-Header-LessonsFinalGrades">Final grades</system:String>
+
+    <system:String x:Key="UsersTab-Header-Id">Id</system:String>
+    <system:String x:Key="UsersTab-Header-LastName">Last name</system:String>
+    <system:String x:Key="UsersTab-Header-FirstName">First name</system:String>
+    <system:String x:Key="UsersTab-Header-Patronymic">Patronymic</system:String>
+    <system:String x:Key="UsersTab-Header-GenderId">Gender</system:String>
+    <system:String x:Key="UsersTab-Header-BirthDate">Birth date</system:String>
+    <system:String x:Key="UsersTab-Header-PhoneNumber">Phone number</system:String>
+    <system:String x:Key="UsersTab-Header-Email">Email</system:String>
+    <system:String x:Key="UsersTab-Header-Address">Address</system:String>
+    <system:String x:Key="UsersTab-Header-AvatarUrl">Avatar url</system:String>
+    <system:String x:Key="UsersTab-Header-RoleId">Role</system:String>
+    <system:String x:Key="UsersTab-Header-RegistrationDate">Registration date</system:String>
+    <system:String x:Key="UsersTab-Header-Dismissed">Dismissed</system:String>
+    <system:String x:Key="UsersTab-Header-GroupId">Group</system:String>
+
+    <system:String x:Key="UsersTab-Button-OpenUserProfile">Open user profile</system:String>
 
 </ResourceDictionary>

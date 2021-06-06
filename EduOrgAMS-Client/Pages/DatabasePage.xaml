@@ -11,9 +11,33 @@
                    d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="{DynamicResource MahApps.Brushes.Window.Background}">
-        <TabControl Style="{DynamicResource MahApps.Styles.TabControl.Animated}">
-            <TabItem Header="Roles">
+        <TabControl Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}">
+            <TabItem Header="{DynamicResource Table-Header-Users}">
+                <tabs:UsersTab/>
+            </TabItem>
+            <TabItem Header="{DynamicResource Table-Header-Courses}">
+                <tabs:CoursesTab/>
+            </TabItem>
+            <TabItem Header="{DynamicResource Table-Header-Semesters}">
+                <tabs:SemestersTab/>
+            </TabItem>
+            <TabItem Header="{DynamicResource Table-Header-Groups}">
+                <tabs:GroupsTab/>
+            </TabItem>
+            <TabItem Header="{DynamicResource Table-Header-Accounts}">
+                <tabs:AccountsTab/>
+            </TabItem>
+            <TabItem Header="{DynamicResource Table-Header-Professions}">
+                <tabs:ProfessionsTab/>
+            </TabItem>
+            <TabItem Header="{DynamicResource Table-Header-EducationalSubjects}">
+                <tabs:EducationalSubjectsTab/>
+            </TabItem>
+            <TabItem Header="{DynamicResource Table-Header-Roles}">
                 <tabs:RolesTab/>
+            </TabItem>
+            <TabItem Header="{DynamicResource Table-Header-Genders}">
+                <tabs:GendersTab/>
             </TabItem>
         </TabControl>
     </Grid>

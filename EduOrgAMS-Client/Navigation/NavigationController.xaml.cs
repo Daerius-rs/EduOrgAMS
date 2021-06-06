@@ -120,9 +120,9 @@ namespace EduOrgAMS.Client.Navigation
             bool skipWhenGoBack = false)
         {
             if (!OverlayIsOpen()
-                && ReferenceEquals(PageContent.Content, page)
+                && ReferenceEquals(PageLayout.Content, page)
                 && (dataContext == null
-                    || ReferenceEquals((PageContent.Content as PageContent)?.DataContext, dataContext)))
+                    || ReferenceEquals((PageLayout.Content as PageContent)?.DataContext, dataContext)))
             {
                 return;
             }
@@ -148,7 +148,7 @@ namespace EduOrgAMS.Client.Navigation
                 page.DataContext = dataContext;
             }
 
-            PageContent.Content = page;
+            PageLayout.Content = page;
             _currentPageContentType = PageContentType.Page;
             _currentPageSkipWhenGoBack = skipWhenGoBack;
 
@@ -163,9 +163,9 @@ namespace EduOrgAMS.Client.Navigation
         private void SetOverlay(PageContent page, PageViewModel dataContext = null,
             bool skipWhenGoBack = false)
         {
-            if (ReferenceEquals(OverlayContent.Content, page)
+            if (ReferenceEquals(OverlayLayout.Content, page)
                 && (dataContext == null
-                    || ReferenceEquals((OverlayContent.Content as PageContent)?.DataContext, dataContext)))
+                    || ReferenceEquals((OverlayLayout.Content as PageContent)?.DataContext, dataContext)))
             {
                 return;
             }
@@ -191,7 +191,7 @@ namespace EduOrgAMS.Client.Navigation
                 page.DataContext = dataContext;
             }
 
-            OverlayContent.Content = page;
+            OverlayLayout.Content = page;
             _currentPageContentType = PageContentType.Overlay;
             _currentPageSkipWhenGoBack = skipWhenGoBack;
 
@@ -223,7 +223,7 @@ namespace EduOrgAMS.Client.Navigation
                 case PageContentType.Page:
                 {
                     node.Content.DataContext = node.DataContext;
-                    PageContent.Content = node.Content;
+                    PageLayout.Content = node.Content;
 
                     SwitchNavBarLayout(node.Content).Wait();
 
@@ -237,11 +237,11 @@ namespace EduOrgAMS.Client.Navigation
                     if (node.SubContent != null)
                     {
                         node.SubContent.DataContext = node.SubDataContext;
-                        PageContent.Content = node.SubContent;
+                        PageLayout.Content = node.SubContent;
                     }
 
                     node.Content.DataContext = node.DataContext;
-                    OverlayContent.Content = node.Content;
+                    OverlayLayout.Content = node.Content;
 
                     SwitchNavBarLayout(node.Content).Wait();
 
@@ -264,8 +264,8 @@ namespace EduOrgAMS.Client.Navigation
 
             var contentControl = _currentPageContentType switch
             {
-                PageContentType.Page => PageContent,
-                PageContentType.Overlay => OverlayContent,
+                PageContentType.Page => PageLayout,
+                PageContentType.Overlay => OverlayLayout,
                 _ => throw new ArgumentException(
                     "Invalid page content type for current page",
                     nameof(_currentPageContentType))
@@ -287,7 +287,7 @@ namespace EduOrgAMS.Client.Navigation
                     SubContent = _currentPageContentType switch
                     {
                         PageContentType.Page => null,
-                        PageContentType.Overlay => PageContent.Content as PageContent,
+                        PageContentType.Overlay => PageLayout.Content as PageContent,
                         _ => throw new ArgumentException(
                             "Invalid page content type for current page",
                             nameof(_currentPageContentType))
@@ -296,7 +296,7 @@ namespace EduOrgAMS.Client.Navigation
                     SubDataContext = _currentPageContentType switch
                     {
                         PageContentType.Page => null,
-                        PageContentType.Overlay => (PageContent.Content as PageContent)?.DataContext as PageViewModel,
+                        PageContentType.Overlay => (PageLayout.Content as PageContent)?.DataContext as PageViewModel,
                         _ => throw new ArgumentException(
                             "Invalid page content type for current page",
                             nameof(_currentPageContentType))
@@ -315,8 +315,8 @@ namespace EduOrgAMS.Client.Navigation
         {
             var contentControl = type switch
             {
-                PageContentType.Page => PageContent,
-                PageContentType.Overlay => OverlayContent,
+                PageContentType.Page => PageLayout,
+                PageContentType.Overlay => OverlayLayout,
                 _ => throw new ArgumentException(
                     "Invalid page content type for type parameter",
                     nameof(type))
@@ -333,22 +333,22 @@ namespace EduOrgAMS.Client.Navigation
 
         private bool OverlayIsOpen()
         {
-            return OverlayLayout.Visibility == Visibility.Visible;
+            return OverlayGrid.Visibility == Visibility.Visible;
         }
 
         private void ShowOverlay()
         {
-            OverlayLayout.Visibility = Visibility.Visible;
+            OverlayGrid.Visibility = Visibility.Visible;
         }
 
         private void HideOverlay()
         {
-            OverlayLayout.Visibility = Visibility.Collapsed;
+            OverlayGrid.Visibility = Visibility.Collapsed;
         }
 
         private void ClearOverlay()
         {
-            OverlayContent.Content = null;
+            OverlayLayout.Content = null;
         }
 
         public void RequestPage<T>(PageViewModel dataContext = null,
@@ -392,8 +392,8 @@ namespace EduOrgAMS.Client.Navigation
         {
             var contentControl = _currentPageContentType switch
             {
-                PageContentType.Page => PageContent,
-                PageContentType.Overlay => OverlayContent,
+                PageContentType.Page => PageLayout,
+                PageContentType.Overlay => OverlayLayout,
                 _ => throw new ArgumentException(
                     "Invalid page content type for current page",
                     nameof(_currentPageContentType))
@@ -413,8 +413,8 @@ namespace EduOrgAMS.Client.Navigation
 
             var contentControl = _currentPageContentType switch
             {
-                PageContentType.Page => PageContent,
-                PageContentType.Overlay => OverlayContent,
+                PageContentType.Page => PageLayout,
+                PageContentType.Overlay => OverlayLayout,
                 _ => throw new ArgumentException(
                     "Invalid page content type for current page",
                     nameof(_currentPageContentType))
@@ -464,9 +464,9 @@ namespace EduOrgAMS.Client.Navigation
         {
             IsContentEventsActive(false);
 
-            if (OverlayContent.Content != null)
+            if (OverlayLayout.Content != null)
             {
-                var layoutType = GetNavBarLayoutType((PageContent)OverlayContent.Content);
+                var layoutType = GetNavBarLayoutType((PageContent)OverlayLayout.Content);
 
                 if (!layoutType.HasValue
                     || layoutType.Value == NavBarLayoutType.NavBarNone
@@ -481,10 +481,10 @@ namespace EduOrgAMS.Client.Navigation
                 {
                     _navigationHistory.Push(new NavigationHistoryNode
                     {
-                        Content = OverlayContent.Content as PageContent,
-                        SubContent = PageContent.Content as PageContent,
-                        DataContext = (OverlayContent.Content as PageContent)?.DataContext as PageViewModel,
-                        SubDataContext = (PageContent.Content as PageContent)?.DataContext as PageViewModel,
+                        Content = OverlayLayout.Content as PageContent,
+                        SubContent = PageLayout.Content as PageContent,
+                        DataContext = (OverlayLayout.Content as PageContent)?.DataContext as PageViewModel,
+                        SubDataContext = (PageLayout.Content as PageContent)?.DataContext as PageViewModel,
                         Type = PageContentType.Overlay,
                         SkipWhenGoBack = _currentPageSkipWhenGoBack
                     });

@@ -27,6 +27,11 @@
     <system:String x:Key="SignOut">Выйти из аккаунта</system:String>
     <system:String x:Key="Version">Версия</system:String>
 
+    <system:String x:Key="EnterPasswordTitle">Ввод пароля</system:String>
+
+    <system:String x:Key="Enum-AddEditModeType-Add">Добавление</system:String>
+    <system:String x:Key="Enum-AddEditModeType-Edit">Редактирование</system:String>
+
     <system:String x:Key="ProfileStatTitle-FullName">Полное имя</system:String>
     <system:String x:Key="ProfileStatTitle-Role">Роль</system:String>
     <system:String x:Key="ProfileStatTitle-Gender">Пол</system:String>
@@ -93,6 +98,20 @@
     <system:String x:Key="InvalidLoginOrPasswordErrorMessage">Неверный логин или пароль</system:String>
     <system:String x:Key="InvalidTokenErrorMessage">Недействительный токен</system:String>
     <system:String x:Key="TokenExpiredErrorMessage">Срок действия токена истек</system:String>
+    <system:String x:Key="NoRowOrCellSelectedInTableErrorMessage">В таблице не выбрана ни одна строка или ячейка</system:String>
+
+    <system:String x:Key="MainPage-Header-Actions">Действия</system:String>
+    <system:String x:Key="MainPage-Button-DatabaseManagement">Управление базой данных</system:String>
+
+    <system:String x:Key="Table-Header-Accounts">Аккаунты</system:String>
+    <system:String x:Key="Table-Header-Courses">Курсы</system:String>
+    <system:String x:Key="Table-Header-EducationalSubjects">Предметы</system:String>
+    <system:String x:Key="Table-Header-Genders">Полы</system:String>
+    <system:String x:Key="Table-Header-Groups">Группы</system:String>
+    <system:String x:Key="Table-Header-Professions">Профессии</system:String>
+    <system:String x:Key="Table-Header-Roles">Роли</system:String>
+    <system:String x:Key="Table-Header-Semesters">Семестры</system:String>
+    <system:String x:Key="Table-Header-Users">Пользователи</system:String>
 
     <system:String x:Key="Tab-Button-Add">Добавить</system:String>
     <system:String x:Key="Tab-Button-Edit">Редактировать</system:String>
@@ -100,11 +119,70 @@
     <system:String x:Key="Tab-Button-Update">Обновить</system:String>
     <system:String x:Key="Tab-Button-Save">Сохранить</system:String>
 
+    <system:String x:Key="AddEdit-Button-Save">Сохранить</system:String>
+    <system:String x:Key="AddEdit-Button-Cancel">Отменить</system:String>
+    <system:String x:Key="AddEdit-Button-Edit">Редактировать</system:String>
+
+    <system:String x:Key="AccountsTab-Header-Id">Id</system:String>
+    <system:String x:Key="AccountsTab-Header-Login">Логин</system:String>
+    <system:String x:Key="AccountsTab-Header-Password">Пароль</system:String>
+    <system:String x:Key="AccountsTab-Header-Token">Токен</system:String>
+    <system:String x:Key="AccountsTab-Header-TokenExpirationDate">Дата истечения токена</system:String>
+    <system:String x:Key="AccountsTab-Header-UserId">Пользователь</system:String>
+
+    <system:String x:Key="CoursesTab-Header-Id">Id</system:String>
+    <system:String x:Key="CoursesTab-Header-Number">Номер</system:String>
+    <system:String x:Key="CoursesTab-Header-StartYear">Год начала</system:String>
+    <system:String x:Key="CoursesTab-Header-EndYear">Год конца</system:String>
+    <system:String x:Key="CoursesTab-Header-LessonsFinalGrades">Итоговые оценки</system:String>
+    <system:String x:Key="CoursesTab-Header-GroupId">Группа</system:String>
+
+    <system:String x:Key="EducationalSubjectsTab-Header-Id">Id</system:String>
+    <system:String x:Key="EducationalSubjectsTab-Header-Name">Название</system:String>
+
+    <system:String x:Key="GendersTab-Header-Id">Id</system:String>
+    <system:String x:Key="GendersTab-Header-Name">Название</system:String>
+
+    <system:String x:Key="GroupsTab-Header-Id">Id</system:String>
+    <system:String x:Key="GroupsTab-Header-RecruitYear">Год набора</system:String>
+    <system:String x:Key="GroupsTab-Header-BaseClassesCount">Количество базовых классов</system:String>
+    <system:String x:Key="GroupsTab-Header-ProfessionId">Профессия</system:String>
+    <system:String x:Key="GroupsTab-Header-CuratorId">Куратор</system:String>
+
+    <system:String x:Key="ProfessionsTab-Header-Id">Id</system:String>
+    <system:String x:Key="ProfessionsTab-Header-Code">Код</system:String>
+    <system:String x:Key="ProfessionsTab-Header-Name">Название</system:String>
+    <system:String x:Key="ProfessionsTab-Header-ShortName">Короткое название</system:String>
+
     <system:String x:Key="RolesTab-Header-Id">Id</system:String>
     <system:String x:Key="RolesTab-Header-Name">Название</system:String>
     <system:String x:Key="RolesTab-Header-Permissions">Права доступа</system:String>
     <system:String x:Key="RolesTab-Header-IsAdmin">Права администратора</system:String>
 
-    <system:String x:Key="DatabaseManagement">Управление базой данных</system:String>
+    <system:String x:Key="SemestersTab-Header-Id">Id</system:String>
+    <system:String x:Key="SemestersTab-Header-CourseId">Курс</system:String>
+    <system:String x:Key="SemestersTab-Header-Number">Номер</system:String>
+    <system:String x:Key="SemestersTab-Header-StartDate">Дата начала</system:String>
+    <system:String x:Key="SemestersTab-Header-EndDate">Дата конца</system:String>
+    <system:String x:Key="SemestersTab-Header-LessonsMisses">Пропуски</system:String>
+    <system:String x:Key="SemestersTab-Header-LessonsGrades">Оценки</system:String>
+    <system:String x:Key="SemestersTab-Header-LessonsFinalGrades">Итоговые оценки</system:String>
+
+    <system:String x:Key="UsersTab-Header-Id">Id</system:String>
+    <system:String x:Key="UsersTab-Header-LastName">Фамилия</system:String>
+    <system:String x:Key="UsersTab-Header-FirstName">Имя</system:String>
+    <system:String x:Key="UsersTab-Header-Patronymic">Отчество</system:String>
+    <system:String x:Key="UsersTab-Header-GenderId">Пол</system:String>
+    <system:String x:Key="UsersTab-Header-BirthDate">Дата рождения</system:String>
+    <system:String x:Key="UsersTab-Header-PhoneNumber">Номер телефона</system:String>
+    <system:String x:Key="UsersTab-Header-Email">Электронная почта</system:String>
+    <system:String x:Key="UsersTab-Header-Address">Адрес</system:String>
+    <system:String x:Key="UsersTab-Header-AvatarUrl">Url аватара</system:String>
+    <system:String x:Key="UsersTab-Header-RoleId">Роль</system:String>
+    <system:String x:Key="UsersTab-Header-RegistrationDate">Дата регистрации</system:String>
+    <system:String x:Key="UsersTab-Header-Dismissed">Уволен/Отчислен</system:String>
+    <system:String x:Key="UsersTab-Header-GroupId">Группа</system:String>
+
+    <system:String x:Key="UsersTab-Button-OpenUserProfile">Открыть профиль пользователя</system:String>
 
 </ResourceDictionary>

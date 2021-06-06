@@ -14,8 +14,12 @@
         <Grid Margin="30">
             <StackPanel Width="200"
                         HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Button Content="{DynamicResource DatabaseManagement}"
-                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                <TextBlock Text="{DynamicResource MainPage-Header-Actions}"
+                           FontSize="16"
+                           TextAlignment="Center"
+                           Margin="0 0 0 10"/>
+                <Button Content="{DynamicResource MainPage-Button-DatabaseManagement}"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent.TextWrapping}"
                         Visibility="{Binding Path=PersistentSettings.CurrentUser.Role, Converter={StaticResource MinimumAccessRoleToVisibilityConverter}, ConverterParameter=Teacher, RelativeSource={RelativeSource AncestorType=root:MainWindow}}"
                         Click="DatabaseManagement_Click"/>
             </StackPanel>

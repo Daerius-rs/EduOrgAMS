@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using EduOrgAMS.Client.Converters;
 using EduOrgAMS.Client.Database;
 using EduOrgAMS.Client.Database.Entities;
 using EduOrgAMS.Client.Dialogs;
@@ -19,20 +20,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EduOrgAMS.Client.Pages.Tabs
 {
-    public partial class RolesTab : TabContent
+    public partial class SemestersTab : TabContent
     {
         private static Type ItemType { get; }
         private static ReadOnlyDictionary<string, PropertyInfo> ItemProperties { get; }
 
-        private List<Role> Items { get; set; }
+        private List<Semester> Items { get; set; }
 
-        static RolesTab()
+        static SemestersTab()
         {
-            ItemType = typeof(Role);
+            ItemType = typeof(Semester);
             ItemProperties = GetItemProperties();
         }
 
-        public RolesTab()
+        public SemestersTab()
         {
             InitializeComponent();
             DataContext = this;
@@ -40,7 +41,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
             LocalizationManager.LanguageChanged += OnLanguageChanged;
         }
 
-        ~RolesTab()
+        ~SemestersTab()
         {
             LocalizationManager.LanguageChanged -= OnLanguageChanged;
         }
@@ -109,13 +110,41 @@ namespace EduOrgAMS.Client.Pages.Tabs
             TableGrid.Items.Clear();
             TableGrid.Columns.Clear();
 
+            await using var context = DatabaseManager
+                .CreateContext();
+
+            await context.Courses.LoadAsync()
+                .ConfigureAwait(true);
+
             TableGrid.Columns.Add(new DataGridNumericUpDownColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Id))
+                    Path = new PropertyPath(nameof(Semester.Id))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridComboBoxColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                ItemsSource = new List<Course>(
+                    context.Courses),
+                DisplayMemberPath = $"{nameof(Course.Name)}",
+                SelectedValuePath = $"{nameof(Course.Id)}",
+                SelectedValueBinding = new Binding
+                {
+                    Path = new PropertyPath(nameof(Semester.CourseId))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridNumericUpDownColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(Semester.Number))
                 }
             });
             TableGrid.Columns.Add(new DataGridTextColumn
@@ -124,7 +153,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Name))
+                    Path = new PropertyPath(nameof(Semester.StartDate)),
+                    Converter = new UnixTimeToStringConverter()
                 }
             });
             TableGrid.Columns.Add(new DataGridTextColumn
@@ -133,16 +163,35 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.Permissions))
+                    Path = new PropertyPath(nameof(Semester.EndDate)),
+                    Converter = new UnixTimeToStringConverter()
                 }
             });
-            TableGrid.Columns.Add(new DataGridCheckBoxColumn
+            TableGrid.Columns.Add(new DataGridTextColumn
             {
                 Visibility = Visibility.Visible,
                 IsReadOnly = true,
                 Binding = new Binding
                 {
-                    Path = new PropertyPath(nameof(Role.IsAdmin))
+                    Path = new PropertyPath(nameof(Semester.LessonsMisses))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridTextColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(Semester.LessonsGrades))
+                }
+            });
+            TableGrid.Columns.Add(new DataGridTextColumn
+            {
+                Visibility = Visibility.Visible,
+                IsReadOnly = true,
+                Binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(Semester.LessonsFinalGrades))
                 }
             });
 
@@ -150,13 +199,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
             Items.Clear();
 
-            await using var context = DatabaseManager
-                .CreateContext();
-
-            await context.Roles.LoadAsync()
+            await context.Semesters.LoadAsync()
                 .ConfigureAwait(true);
 
-            Items.AddRange(context.Roles);
+            Items.AddRange(context.Semesters);
 
             TableGrid.ItemsSource = Items;
         }
@@ -188,10 +234,10 @@ namespace EduOrgAMS.Client.Pages.Tabs
             ShowOverlay();
         }
 
-        private RolesAddEdit ShowAddEdit(Role item,
+        private SemestersAddEdit ShowAddEdit(Semester item,
             AddEditModeType mode)
         {
-            var control = new RolesAddEdit(
+            var control = new SemestersAddEdit(
                 item, mode);
 
             control.SaveButtonClick += AddEdit_SaveButtonClick;
@@ -206,7 +252,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
         {
             base.OnCreated(sender, e);
 
-            Items = new List<Role>(128);
+            Items = new List<Semester>(128);
 
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
@@ -266,7 +312,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = new Role();
+            var item = new Semester();
 
             ShowAddEdit(item, AddEditModeType.Add);
         }
@@ -285,8 +331,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as Semester
+                       ?? TableGrid.SelectedCells[0].Item as Semester;
 
             if (item == null)
                 return;
@@ -316,8 +362,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
                 return;
             }
 
-            var item = TableGrid.SelectedItem as Role
-                       ?? TableGrid.SelectedCells[0].Item as Role;
+            var item = TableGrid.SelectedItem as Semester
+                       ?? TableGrid.SelectedCells[0].Item as Semester;
 
             if (item == null)
                 return;

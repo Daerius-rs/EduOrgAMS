@@ -1,0 +1,104 @@
+﻿<local:AddEditContent x:Class="EduOrgAMS.Client.Pages.Tabs.AddEdit.GendersAddEdit"
+                      d:DataContext="{d:DesignInstance local:GendersAddEdit}"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:EduOrgAMS.Client.Pages.Tabs.AddEdit"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      mc:Ignorable="d"
+                      d:DesignHeight="400" d:DesignWidth="400"
+                      MinWidth="400" MinHeight="300"
+                      Width="400" Height="Auto">
+
+    <Grid Background="{DynamicResource MahApps.Brushes.Window.Background}">
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="35" Height="35"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition MinHeight="35" Height="35"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       FontSize="15"
+                       HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Mode}" Value="Add">
+                                <Setter Property="TextBlock.Text" Value="{DynamicResource Enum-AddEditModeType-Add}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Mode}" Value="Edit">
+                                <Setter Property="TextBlock.Text" Value="{DynamicResource Enum-AddEditModeType-Edit}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <ScrollViewer Grid.Row="1" Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Visible">
+                <StackPanel Orientation="Vertical"
+                            Margin="0 5 0 5">
+                    <Grid Margin="0 0 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="{DynamicResource GendersTab-Header-Id}"
+                                   HorizontalAlignment="Right"
+                                   Margin="5 0 5 0"/>
+                        <controls:NumericUpDown Grid.Column="1"
+                                                Value="{Binding Item.Id}"
+                                                Minimum="0"
+                                                Maximum="2147483647"
+                                                IsEnabled="False"
+                                                NumericInputMode="Numbers"
+                                                HideUpDownButtons="True"
+                                                InterceptArrowKeys="True"
+                                                InterceptManualEnter="True"
+                                                InterceptMouseWheel="True"
+                                                HorizontalAlignment="Stretch"/>
+                    </Grid>
+                    <Grid Margin="0 0 0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="{DynamicResource GendersTab-Header-Name}"
+                                   HorizontalAlignment="Right"
+                                   Margin="5 0 5 0"/>
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding Item.Name}"
+                                 Style="{DynamicResource MahApps.Styles.TextBox}"
+                                 HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+            <Button Grid.Row="2" Grid.Column="0"
+                    x:Name="SaveButton"
+                    Content="{DynamicResource AddEdit-Button-Save}"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent.TextWrapping}"
+                    Margin="2"
+                    Click="SaveButton_Click"/>
+            <Button Grid.Row="2" Grid.Column="1"
+                    x:Name="CancelButton"
+                    Content="{DynamicResource AddEdit-Button-Cancel}"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent.TextWrapping}"
+                    Background="#FF9F0000"
+                    Margin="2"
+                    Click="CancelButton_Click"/>
+        </Grid>
+    </Grid>
+</local:AddEditContent>
