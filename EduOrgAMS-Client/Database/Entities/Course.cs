@@ -156,6 +156,7 @@ namespace EduOrgAMS.Client.Database.Entities
             }
         }
 
+        [NotMapped]
         public virtual ICollection<Semester> Semesters
         {
             get

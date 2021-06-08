@@ -128,6 +128,7 @@ namespace EduOrgAMS.Client.Database.Entities
             }
         }
 
+        [NotMapped]
         public virtual ICollection<Course> Courses
         {
             get
