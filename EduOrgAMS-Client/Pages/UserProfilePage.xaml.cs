@@ -425,12 +425,12 @@ namespace EduOrgAMS.Client.Pages
 
         private void EditPhoneNumber_Click(object sender, RoutedEventArgs e)
         {
-
+            EditSinglelineText_Click(sender, e);
         }
 
         private void EditEmail_Click(object sender, RoutedEventArgs e)
         {
-
+            EditSinglelineText_Click(sender, e);
         }
 
         private void Avatar_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
