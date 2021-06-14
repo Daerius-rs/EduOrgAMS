@@ -86,8 +86,8 @@
     <system:String x:Key="LoginErrorTitle">Ошибка входа</system:String>
     <system:String x:Key="RegisterErrorTitle">Ошибка регистрации</system:String>
 
-    <system:String x:Key="NoLocalizationsFoundMessage">Локализации не найдены</system:String>
-    <system:String x:Key="CouldNotGetLocalizationMessage">Не удалось получить локализацию</system:String>
+    <system:String x:Key="NoLocalizationsFoundErrorMessage">Локализации не найдены</system:String>
+    <system:String x:Key="CouldNotGetLocalizationErrorMessage">Не удалось получить локализацию</system:String>
     <system:String x:Key="GettingProfileErrorMessage">Не удалось получить профиль</system:String>
     <system:String x:Key="UpdatingDataErrorMessage">Не удалось обновить данные</system:String>
     <system:String x:Key="ChangingPasswordErrorMessage">Не удалось изменить пароль</system:String>
@@ -99,6 +99,7 @@
     <system:String x:Key="InvalidTokenErrorMessage">Недействительный токен</system:String>
     <system:String x:Key="TokenExpiredErrorMessage">Срок действия токена истек</system:String>
     <system:String x:Key="NoRowOrCellSelectedInTableErrorMessage">В таблице не выбрана ни одна строка или ячейка</system:String>
+    <system:String x:Key="InvalidFieldValueErrorMessage">Недопустимое значение поля</system:String>
 
     <system:String x:Key="MainPage-Header-Actions">Действия</system:String>
     <system:String x:Key="MainPage-Button-DatabaseManagement">Управление базой данных</system:String>

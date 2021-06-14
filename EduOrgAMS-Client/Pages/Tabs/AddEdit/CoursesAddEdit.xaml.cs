@@ -30,7 +30,7 @@ namespace EduOrgAMS.Client.Pages.Tabs.AddEdit
             await using var context = DatabaseManager
                 .CreateContext();
 
-            await context.Groups.LoadAsync()
+            await context.Groups.AsNoTracking().LoadAsync()
                 .ConfigureAwait(true);
 
             Groups = new List<Group>(

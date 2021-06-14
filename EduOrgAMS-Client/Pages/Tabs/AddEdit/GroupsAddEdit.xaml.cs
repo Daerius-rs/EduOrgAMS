@@ -31,9 +31,9 @@ namespace EduOrgAMS.Client.Pages.Tabs.AddEdit
             await using var context = DatabaseManager
                 .CreateContext();
 
-            await context.Professions.LoadAsync()
+            await context.Professions.AsNoTracking().LoadAsync()
                 .ConfigureAwait(true);
-            await context.Users.LoadAsync()
+            await context.Users.AsNoTracking().LoadAsync()
                 .ConfigureAwait(true);
 
             Professions = new List<Profession>(

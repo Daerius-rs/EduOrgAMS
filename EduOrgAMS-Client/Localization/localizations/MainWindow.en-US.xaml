@@ -86,8 +86,8 @@
     <system:String x:Key="LoginErrorTitle">Login error</system:String>
     <system:String x:Key="RegisterErrorTitle">Register error</system:String>
 
-    <system:String x:Key="NoLocalizationsFoundMessage">No localizations found</system:String>
-    <system:String x:Key="CouldNotGetLocalizationMessage">Couldn't get localization</system:String>
+    <system:String x:Key="NoLocalizationsFoundErrorMessage">No localizations found</system:String>
+    <system:String x:Key="CouldNotGetLocalizationErrorMessage">Couldn't get localization</system:String>
     <system:String x:Key="GettingProfileErrorMessage">Couldn't get profile</system:String>
     <system:String x:Key="UpdatingDataErrorMessage">Failed to update data</system:String>
     <system:String x:Key="ChangingPasswordErrorMessage">Couldn't change password</system:String>
@@ -99,6 +99,7 @@
     <system:String x:Key="InvalidTokenErrorMessage">Invalid token</system:String>
     <system:String x:Key="TokenExpiredErrorMessage">Token expired</system:String>
     <system:String x:Key="NoRowOrCellSelectedInTableErrorMessage">No row or cell is selected in the table</system:String>
+    <system:String x:Key="InvalidFieldValueErrorMessage">Invalid field value</system:String>
 
     <system:String x:Key="MainPage-Header-Actions">Actions</system:String>
     <system:String x:Key="MainPage-Button-DatabaseManagement">Database management</system:String>

@@ -18,7 +18,7 @@ namespace EduOrgAMS.Client.Utils
         public static bool IsValidCharsString(string value, string regexCharPattern,
             RegexOptions regexOptions = RegexOptions.None)
         {
-            return Regex.Matches(value, $"[^{regexCharPattern}]", regexOptions).Count <= 0;
+            return Regex.Matches(value, $"[^{regexCharPattern}]", regexOptions).Count == 0;
         }
 
         public static bool IsValidPatternString(string value, string regexStringPattern,

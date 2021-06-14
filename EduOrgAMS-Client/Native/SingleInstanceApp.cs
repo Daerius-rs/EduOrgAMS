@@ -131,9 +131,9 @@ namespace EduOrgAMS.Client.Native
                 IpcBusContentType.StringUtf8, restoreWindow);
         }
 
-        public void Run(Action action)
+        public Task Run(Action action)
         {
-            RunInternal(action, IntPtr.Zero, IntPtr.Zero).Wait();
+            return RunInternal(action, IntPtr.Zero, IntPtr.Zero);
         }
 
         private async Task RunInternal(Action action, IntPtr wParam, IntPtr lParam)

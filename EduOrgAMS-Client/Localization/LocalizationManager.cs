@@ -288,7 +288,7 @@ namespace EduOrgAMS.Client.Localization
                 return localizationModule;
             }
 
-            var message = LocalizationUtils.TryGetLocalized("CouldNotGetLocalizationMessage")
+            var message = LocalizationUtils.TryGetLocalized("CouldNotGetLocalizationErrorMessage")
                           ?? "Couldn't get localization";
 
             await DialogManager.ShowErrorDialog(message)
@@ -431,7 +431,7 @@ namespace EduOrgAMS.Client.Localization
         {
             if (element.Locales.Count == 0)
             {
-                var message = LocalizationUtils.TryGetLocalized("NoLocalizationsFoundMessage")
+                var message = LocalizationUtils.TryGetLocalized("NoLocalizationsFoundErrorMessage")
                               ?? "No localizations found";
 
                 await DialogManager.ShowErrorDialog(message)
@@ -450,7 +450,7 @@ namespace EduOrgAMS.Client.Localization
 
             if (string.IsNullOrEmpty(locale))
             {
-                var message = LocalizationUtils.TryGetLocalized("CouldNotGetLocalizationMessage")
+                var message = LocalizationUtils.TryGetLocalized("CouldNotGetLocalizationErrorMessage")
                               ?? "Couldn't get localization";
 
                 await DialogManager.ShowErrorDialog(message)

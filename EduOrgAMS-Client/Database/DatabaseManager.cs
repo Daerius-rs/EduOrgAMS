@@ -137,11 +137,45 @@ namespace EduOrgAMS.Client.Database
                 .ConfigureAwait(false);
         }
 
+        public static TEntity FindNoTracking<TEntity>(
+            params object[] keyValues)
+            where TEntity : class
+        {
+            using var context = CreateContext();
+
+            context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
+            var value = context.Find<TEntity>(
+                keyValues);
+
+            context.Entry(value).State = EntityState.Detached;
+
+            return value;
+        }
+        public static async ValueTask<TEntity> FindNoTrackingAsync<TEntity>(
+            params object[] keyValues)
+            where TEntity : class
+        {
+            await using var context = CreateContext();
+
+            context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
+            var value = await context.FindAsync<TEntity>(
+                    keyValues)
+                .ConfigureAwait(false);
+
+            context.Entry(value).State = EntityState.Detached;
+
+            return value;
+        }
+
         public static EntityEntry<TEntity> Add<TEntity>(
             TEntity entity)
             where TEntity : class
         {
             using var context = CreateContext();
+
+            context.ChangeTracker.AutoDetectChangesEnabled = false;
 
             var result = context.Add<TEntity>(
                 entity);
@@ -155,6 +189,8 @@ namespace EduOrgAMS.Client.Database
             where TEntity : class
         {
             await using var context = CreateContext();
+
+            context.ChangeTracker.AutoDetectChangesEnabled = false;
 
             var result = await context.AddAsync<TEntity>(
                     entity)
@@ -172,6 +208,8 @@ namespace EduOrgAMS.Client.Database
         {
             using var context = CreateContext();
 
+            context.ChangeTracker.AutoDetectChangesEnabled = false;
+
             var result = context.Update<TEntity>(
                 entity);
 
@@ -185,6 +223,8 @@ namespace EduOrgAMS.Client.Database
             where TEntity : class
         {
             using var context = CreateContext();
+
+            context.ChangeTracker.AutoDetectChangesEnabled = false;
 
             var result = context.Remove<TEntity>(
                 entity);

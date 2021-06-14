@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using EduOrgAMS.Client.Database;
 using EduOrgAMS.Client.Database.Entities;
+using EduOrgAMS.Client.Dialogs;
+using EduOrgAMS.Client.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace EduOrgAMS.Client.Pages.Tabs.AddEdit
@@ -30,7 +32,7 @@ namespace EduOrgAMS.Client.Pages.Tabs.AddEdit
             await using var context = DatabaseManager
                 .CreateContext();
 
-            await context.Courses.LoadAsync()
+            await context.Courses.AsNoTracking().LoadAsync()
                 .ConfigureAwait(true);
 
             Courses = new List<Course>(
@@ -60,6 +62,31 @@ namespace EduOrgAMS.Client.Pages.Tabs.AddEdit
             {
                 if (Item == null)
                     return;
+
+                if (Item.StartDate == 0)
+                {
+                    var message = LocalizationUtils
+                        .GetLocalized("InvalidFieldValueErrorMessage");
+                    var header = LocalizationUtils
+                        .GetLocalized("SemestersTab-Header-StartDate");
+
+                    await DialogManager.ShowErrorDialog($"{message} - '{header}'")
+                        .ConfigureAwait(true);
+
+                    return;
+                }
+                if (Item.EndDate == 0)
+                {
+                    var message = LocalizationUtils
+                        .GetLocalized("InvalidFieldValueErrorMessage");
+                    var header = LocalizationUtils
+                        .GetLocalized("SemestersTab-Header-EndDate");
+
+                    await DialogManager.ShowErrorDialog($"{message} - '{header}'")
+                        .ConfigureAwait(true);
+
+                    return;
+                }
 
                 if (Mode == AddEditModeType.Add)
                 {

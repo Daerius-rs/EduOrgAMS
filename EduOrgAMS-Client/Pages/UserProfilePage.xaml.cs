@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -423,14 +424,162 @@ namespace EduOrgAMS.Client.Pages
             UpdateStatBlock(statBlock);
         }
 
-        private void EditPhoneNumber_Click(object sender, RoutedEventArgs e)
+        private async void EditPhoneNumber_Click(object sender, RoutedEventArgs e)
         {
-            EditSinglelineText_Click(sender, e);
+            UserProfileStat element = sender as UserProfileStat;
+
+            BindingExpression binding = element?.GetBindingExpression(UserProfileStat.StatValueProperty);
+
+            if (binding == null)
+                return;
+
+            User sourceClass = (User)binding.ResolvedSource;
+            PropertyInfo sourceProperty = typeof(User).GetProperty(binding.ResolvedSourcePropertyName);
+
+            if (sourceClass == null || sourceProperty == null)
+                return;
+
+            string title = LocalizationUtils.GetLocalized("ProfileEditingTitle");
+            string enterName = LocalizationUtils.GetLocalized("EnterTitle");
+
+            string oldValue = (string)sourceProperty.GetValue(sourceClass);
+            string value = await DialogManager.ShowSinglelineTextDialog(title,
+                    $"{enterName} '{element.StatTitle}'", oldValue)
+                .ConfigureAwait(true);
+
+            if (value == null)
+                return;
+
+            if (!string.IsNullOrEmpty(value)
+                && !ValidateUtils.IsValidPatternString(value,
+                    @"^(?<phone_number>(?<country_code>\+7)(?:[\s]{1})(?:(?:(?:[\(]{1})(?=\d{3}[\)]{1}))?(?<area_code>(?:\d{3}))(?:(?<=[\(]{1}\d{3})(?:[\)]{1}))?)(?:[\s]{1})(?<prefix>\d{3})(?:[-\s]{1})(?<suffix>(?<suffix_part_1>\d{2})(?:[-\s]{1})(?<suffix_part_2>\d{2}))(?!\d))$",
+                    RegexOptions.IgnoreCase))
+            {
+                var message = LocalizationUtils
+                    .GetLocalized("InvalidFieldValueErrorMessage");
+
+                await DialogManager.ShowErrorDialog($"{message} - '{element.StatTitle}'")
+                    .ConfigureAwait(true);
+
+                return;
+            }
+
+            await using var context = DatabaseManager.CreateContext();
+
+            var user = await context.Users.FindAsync(
+                    SettingsManager.PersistentSettings.CurrentUser.Id)
+                .ConfigureAwait(true);
+
+            if (user == null)
+            {
+                var message = LocalizationUtils.GetLocalized("GettingProfileErrorMessage");
+
+                await DialogManager.ShowErrorDialog(message)
+                    .ConfigureAwait(true);
+                return;
+            }
+
+            sourceProperty.SetValue(sourceClass, value);
+            sourceProperty.SetValue(user, value);
+
+            var changesCount = await DatabaseManager.SaveChangesAsync(context)
+                .ConfigureAwait(true);
+
+            if (changesCount == 0)
+            {
+                var message = LocalizationUtils.GetLocalized("UpdatingDataErrorMessage");
+
+                await DialogManager.ShowErrorDialog(message)
+                    .ConfigureAwait(true);
+
+                sourceProperty.SetValue(sourceClass, oldValue);
+            }
+
+            var statBlock = element.TryFindParent<StackPanel>();
+
+            if (statBlock == null)
+                return;
+
+            UpdateStatBlock(statBlock);
         }
 
-        private void EditEmail_Click(object sender, RoutedEventArgs e)
+        private async void EditEmail_Click(object sender, RoutedEventArgs e)
         {
-            EditSinglelineText_Click(sender, e);
+            UserProfileStat element = sender as UserProfileStat;
+
+            BindingExpression binding = element?.GetBindingExpression(UserProfileStat.StatValueProperty);
+
+            if (binding == null)
+                return;
+
+            User sourceClass = (User)binding.ResolvedSource;
+            PropertyInfo sourceProperty = typeof(User).GetProperty(binding.ResolvedSourcePropertyName);
+
+            if (sourceClass == null || sourceProperty == null)
+                return;
+
+            string title = LocalizationUtils.GetLocalized("ProfileEditingTitle");
+            string enterName = LocalizationUtils.GetLocalized("EnterTitle");
+
+            string oldValue = (string)sourceProperty.GetValue(sourceClass);
+            string value = await DialogManager.ShowSinglelineTextDialog(title,
+                    $"{enterName} '{element.StatTitle}'", oldValue)
+                .ConfigureAwait(true);
+
+            if (value == null)
+                return;
+
+            if (!string.IsNullOrEmpty(value)
+                && !ValidateUtils.IsValidPatternString(value,
+                    @"^(?<email>[a-z0-9!#$%&'*+\=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9]))$",
+                    RegexOptions.IgnoreCase))
+            {
+                var message = LocalizationUtils
+                    .GetLocalized("InvalidFieldValueErrorMessage");
+
+                await DialogManager.ShowErrorDialog($"{message} - '{element.StatTitle}'")
+                    .ConfigureAwait(true);
+
+                return;
+            }
+
+            await using var context = DatabaseManager.CreateContext();
+
+            var user = await context.Users.FindAsync(
+                    SettingsManager.PersistentSettings.CurrentUser.Id)
+                .ConfigureAwait(true);
+
+            if (user == null)
+            {
+                var message = LocalizationUtils.GetLocalized("GettingProfileErrorMessage");
+
+                await DialogManager.ShowErrorDialog(message)
+                    .ConfigureAwait(true);
+                return;
+            }
+
+            sourceProperty.SetValue(sourceClass, value);
+            sourceProperty.SetValue(user, value);
+
+            var changesCount = await DatabaseManager.SaveChangesAsync(context)
+                .ConfigureAwait(true);
+
+            if (changesCount == 0)
+            {
+                var message = LocalizationUtils.GetLocalized("UpdatingDataErrorMessage");
+
+                await DialogManager.ShowErrorDialog(message)
+                    .ConfigureAwait(true);
+
+                sourceProperty.SetValue(sourceClass, oldValue);
+            }
+
+            var statBlock = element.TryFindParent<StackPanel>();
+
+            if (statBlock == null)
+                return;
+
+            UpdateStatBlock(statBlock);
         }
 
         private void Avatar_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

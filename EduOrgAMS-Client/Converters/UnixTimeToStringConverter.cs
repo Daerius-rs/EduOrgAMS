@@ -17,12 +17,14 @@ namespace EduOrgAMS.Client.Converters
                     result = longValue;
 
                 return TimeUtils.ToDateTime(result)
-                    .ToString(CultureInfo.InvariantCulture);
+                    .ToString(CultureInfo.InvariantCulture)
+                    .Replace('/', '.');
             }
             catch (Exception)
             {
                 return TimeUtils.ToDateTime(0)
-                    .ToString(CultureInfo.InvariantCulture);
+                    .ToString(CultureInfo.InvariantCulture)
+                    .Replace('/', '.'); ;
             }
         }
 
@@ -36,7 +38,8 @@ namespace EduOrgAMS.Client.Converters
                     result = stringValue;
 
                 return TimeUtils.ToUnixTimeStamp(DateTime.Parse(
-                    result, CultureInfo.InvariantCulture));
+                    result.Replace('.', '/'),
+                    CultureInfo.InvariantCulture));
             }
             catch (Exception)
             {
@@ -44,7 +47,8 @@ namespace EduOrgAMS.Client.Converters
                     .ToString(CultureInfo.InvariantCulture);
 
                 return TimeUtils.ToUnixTimeStamp(DateTime.Parse(
-                    result, CultureInfo.InvariantCulture));
+                    result.Replace('.', '/'),
+                    CultureInfo.InvariantCulture));
             }
         }
     }

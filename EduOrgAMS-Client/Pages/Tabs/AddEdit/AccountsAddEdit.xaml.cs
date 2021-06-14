@@ -42,7 +42,7 @@ namespace EduOrgAMS.Client.Pages.Tabs.AddEdit
             await using var context = DatabaseManager
                 .CreateContext();
 
-            await context.Users.LoadAsync()
+            await context.Users.AsNoTracking().LoadAsync()
                 .ConfigureAwait(true);
 
             Users = new List<User>(

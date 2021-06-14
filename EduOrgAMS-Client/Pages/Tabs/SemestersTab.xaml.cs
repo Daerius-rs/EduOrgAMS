@@ -103,17 +103,34 @@ namespace EduOrgAMS.Client.Pages.Tabs
             }
         }
 
-        private async Task Update()
+        private Task UpdateData()
+        {
+            return UpdateData(DatabaseManager
+                .CreateContext());
+        }
+        private async Task UpdateData(DatabaseContext context)
         {
             TableGrid.ItemsSource = null;
 
             TableGrid.Items.Clear();
+            Items.Clear();
+
+            await context.Semesters.AsNoTracking().LoadAsync()
+                .ConfigureAwait(true);
+
+            Items.AddRange(context.Semesters);
+
+            TableGrid.ItemsSource = Items;
+        }
+
+        private async Task Update()
+        {
             TableGrid.Columns.Clear();
 
             await using var context = DatabaseManager
                 .CreateContext();
 
-            await context.Courses.LoadAsync()
+            await context.Courses.AsNoTracking().LoadAsync()
                 .ConfigureAwait(true);
 
             TableGrid.Columns.Add(new DataGridNumericUpDownColumn
@@ -197,14 +214,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
             UpdateHeaders();
 
-            Items.Clear();
-
-            await context.Semesters.LoadAsync()
+            await UpdateData(context)
                 .ConfigureAwait(true);
-
-            Items.AddRange(context.Semesters);
-
-            TableGrid.ItemsSource = Items;
         }
 
         private bool OverlayIsOpen()
@@ -288,7 +299,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
             HideOverlay();
             ClearOverlay();
 
-            await Update()
+            await UpdateData()
                 .ConfigureAwait(true);
 
             if (sender is AddEditContent control)
@@ -373,7 +384,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
         private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            await Update()
+            await UpdateData()
                 .ConfigureAwait(true);
         }
     }

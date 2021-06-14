@@ -22,6 +22,7 @@ using EduOrgAMS.Client.Storage;
 using EduOrgAMS.Client.Utils;
 using RIS;
 using RIS.Cryptography;
+using RIS.Synchronization.Context;
 using RIS.Wrappers;
 using Environment = RIS.Environment;
 
@@ -64,9 +65,12 @@ namespace EduOrgAMS.Client
 
             ParseArgs(args);
 
-            Instance.Run(() =>
+            SingleThreadedSynchronizationContext.Await(() =>
             {
-                SingleInstanceMain();
+                return Instance.Run(() =>
+                {
+                    SingleInstanceMain();
+                });
             });
         }
 
@@ -220,7 +224,7 @@ namespace EduOrgAMS.Client
 
             if (EduOrgAMS.Client.MainWindow.Instance.Locales.Count == 0)
             {
-                var message = LocalizationUtils.TryGetLocalized("NoLocalizationsFoundMessage")
+                var message = LocalizationUtils.TryGetLocalized("NoLocalizationsFoundErrorMessage")
                               ?? "No localizations found";
 
                 await DialogManager.ShowErrorDialog(message)

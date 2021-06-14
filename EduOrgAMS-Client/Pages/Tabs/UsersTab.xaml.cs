@@ -105,21 +105,38 @@ namespace EduOrgAMS.Client.Pages.Tabs
             }
         }
 
-        private async Task Update()
+        private Task UpdateData()
+        {
+            return UpdateData(DatabaseManager
+                .CreateContext());
+        }
+        private async Task UpdateData(DatabaseContext context)
         {
             TableGrid.ItemsSource = null;
 
             TableGrid.Items.Clear();
+            Items.Clear();
+
+            await context.Users.AsNoTracking().LoadAsync()
+                .ConfigureAwait(true);
+
+            Items.AddRange(context.Users);
+
+            TableGrid.ItemsSource = Items;
+        }
+
+        private async Task Update()
+        {
             TableGrid.Columns.Clear();
 
             await using var context = DatabaseManager
                 .CreateContext();
 
-            await context.Genders.LoadAsync()
+            await context.Genders.AsNoTracking().LoadAsync()
                 .ConfigureAwait(true);
-            await context.Roles.LoadAsync()
+            await context.Roles.AsNoTracking().LoadAsync()
                 .ConfigureAwait(true);
-            await context.Groups.LoadAsync()
+            await context.Groups.AsNoTracking().LoadAsync()
                 .ConfigureAwait(true);
 
             TableGrid.Columns.Add(new DataGridNumericUpDownColumn
@@ -265,14 +282,8 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
             UpdateHeaders();
 
-            Items.Clear();
-
-            await context.Users.LoadAsync()
+            await UpdateData(context)
                 .ConfigureAwait(true);
-
-            Items.AddRange(context.Users);
-
-            TableGrid.ItemsSource = Items;
         }
 
         private bool OverlayIsOpen()
@@ -356,7 +367,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
             HideOverlay();
             ClearOverlay();
 
-            await Update()
+            await UpdateData()
                 .ConfigureAwait(true);
 
             if (sender is AddEditContent control)
@@ -441,7 +452,7 @@ namespace EduOrgAMS.Client.Pages.Tabs
 
         private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            await Update()
+            await UpdateData()
                 .ConfigureAwait(true);
         }
 
